@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class AvroProducer {
 
-  private static final String TOPIC = "avro-stream";
+  private static final String TOPIC = "big-avro-stream";
   private static final int SEGMENTS_PER_RECORD = 10;
   private static final int FIELDS_PER_SEGMENT = 10;
   private static final int TOTAL_RECORDS = 200_000_000;
