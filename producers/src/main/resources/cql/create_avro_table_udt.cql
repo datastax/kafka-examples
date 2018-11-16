@@ -24,19 +24,6 @@ segment1_8 text,
 segment1_9 text
 );
 
-CREATE type stocks.segment1_udt (
-segment1_0 text,
-segment1_1 text,
-segment1_2 text,
-segment1_3 text,
-segment1_4 text,
-segment1_5 text,
-segment1_6 text,
-segment1_7 text,
-segment1_8 text,
-segment1_9 text
-);
-
 CREATE type stocks.segment2_udt (
 segment2_0 text,
 segment2_1 text,
