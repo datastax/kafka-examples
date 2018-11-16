@@ -27,7 +27,7 @@ public class AvroProducer {
   private static final String TOPIC = "avro-stream";
   private static final int SEGMENTS_PER_RECORD = 10;
   private static final int FIELDS_PER_SEGMENT = 10;
-  private static final int TOTAL_RECORDS = 100_000;
+  private static final int TOTAL_RECORDS = 200_000_000;
 
   // Report number of records sent every this many seconds.
   private static final long PROGRESS_REPORTING_INTERVAL = 5;
