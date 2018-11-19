@@ -1,3 +1,5 @@
+package avro;
+
 import com.google.common.util.concurrent.RateLimiter;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
@@ -56,7 +58,7 @@ public class InfiniteAvroProducer {
     final KafkaProducer<GenericRecord, GenericRecord> producer = new KafkaProducer<>(props);
     Runtime.getRuntime().addShutdownHook(new Thread(producer::close, "Shutdown-thread"));
 
-    String schemaPath = "src/main/resources/bigavro.asvc";
+    String schemaPath = "src/main/resources/avro/bigavro.asvc";
     String keySchemaString = "{\"type\": \"record\",\"name\": \"key\",\"fields\":[{\"type\": \"string\",\"name\": \"key\"}]}}";
     String valueSchemaString = "";
 
