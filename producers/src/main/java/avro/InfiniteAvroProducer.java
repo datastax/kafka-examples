@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.Instant;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,14 +25,16 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.IntStream;
 
 
+/***
+ * start with:
+ * mvn clean compile exec:java -Dexec.mainClass=avro.InfiniteAvroProducer -Dexec.args="10"
+ */
 public class InfiniteAvroProducer {
 
   private static final String TOPIC = "avro-stream";
   private static final int SEGMENTS_PER_RECORD = 10;
   private static final int FIELDS_PER_SEGMENT = 10;
 
-  private static final int MAX_REQUEST_PER_SECOND = 30_000;
-  private static final RateLimiter RATE_LIMITER = RateLimiter.create(MAX_REQUEST_PER_SECOND);
   private static final AtomicLong ID_GENERATOR = new AtomicLong();
 
   // Report number of records sent every this many seconds.
@@ -45,15 +46,19 @@ public class InfiniteAvroProducer {
 
   public static void main(String[] args) {
 
+    if (args.length != 1) {
+      throw new IllegalArgumentException("you need to supply one number that is maxRequestsPerSecond");
+    }
+
+    final int maxRequestsPerSecond = Integer.parseInt(args[0]);
+    final RateLimiter rateLimiter = RateLimiter.create(maxRequestsPerSecond);
+
     Properties props = new Properties();
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
     props.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
     props.put(ProducerConfig.ACKS_CONFIG, "1");
-
-    // Start a timer to measure how long this run takes overall.
-    Instant start = Instant.now();
 
     final KafkaProducer<GenericRecord, GenericRecord> producer = new KafkaProducer<>(props);
     Runtime.getRuntime().addShutdownHook(new Thread(producer::close, "Shutdown-thread"));
@@ -100,24 +105,25 @@ public class InfiniteAvroProducer {
         () -> log.info("Successfully created {} Kafka records", successCount.get()),
         2, PROGRESS_REPORTING_INTERVAL, TimeUnit.SECONDS);
 
+    log.info("start sending {} records per second", maxRequestsPerSecond);
 
     IntStream.range(0, NUMBER_OF_THREADS).forEach(ignore ->
-    executorService.submit(() -> {
-      while(true){
-        GenericRecord thisKeyRecord = new GenericData.Record(avroKeySchema);
-        GenericRecord thisValueRecord = new GenericData.Record(avroValueSchema);
-        for (int j = 0; j < SEGMENTS_PER_RECORD; j++) {
-          GenericRecord nestedRecord = new GenericData.Record(avroValueSchema.getField("segment" + j).schema().getTypes().get(1));
-          for (int i = 0; i < FIELDS_PER_SEGMENT; i++) {
-            nestedRecord.put("segment" + j + "_" + i, Integer.toString(i));
-          }
-          thisValueRecord.put("segment" + j, nestedRecord);
-        }
-        thisKeyRecord.put("key", Long.toString(ID_GENERATOR.incrementAndGet()));
+        executorService.submit(() -> {
+          while (true) {
+            GenericRecord thisKeyRecord = new GenericData.Record(avroKeySchema);
+            GenericRecord thisValueRecord = new GenericData.Record(avroValueSchema);
+            for (int j = 0; j < SEGMENTS_PER_RECORD; j++) {
+              GenericRecord nestedRecord = new GenericData.Record(avroValueSchema.getField("segment" + j).schema().getTypes().get(1));
+              for (int i = 0; i < FIELDS_PER_SEGMENT; i++) {
+                nestedRecord.put("segment" + j + "_" + i, Integer.toString(i));
+              }
+              thisValueRecord.put("segment" + j, nestedRecord);
+            }
+            thisKeyRecord.put("key", Long.toString(ID_GENERATOR.incrementAndGet()));
 
-        RATE_LIMITER.acquire();
-        producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
-      }
-    }));
+            rateLimiter.acquire();
+            producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
+          }
+        }));
   }
 }
