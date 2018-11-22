@@ -26,7 +26,7 @@ import java.util.stream.IntStream;
 
 public class InfiniteJsonProducer {
 
-  private static final String TOPIC = "json-stream-1";
+  private static final String TOPIC = "json-stream-infinite";
   private static final int RECORDS_PER_STOCK = 2_000_000;
   private static final int NUMBER_OF_STOCKS = 500;
   // Report number of records sent every this many seconds.

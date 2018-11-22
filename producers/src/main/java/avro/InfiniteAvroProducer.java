@@ -31,7 +31,7 @@ import java.util.stream.IntStream;
  */
 public class InfiniteAvroProducer {
 
-  private static final String TOPIC = "avro-stream";
+  private static final String TOPIC = "avro-stream-infinite";
   private static final int SEGMENTS_PER_RECORD = 10;
   private static final int FIELDS_PER_SEGMENT = 10;
 
