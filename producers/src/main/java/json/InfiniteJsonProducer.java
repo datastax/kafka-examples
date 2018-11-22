@@ -90,7 +90,7 @@ public class InfiniteJsonProducer {
         2, PROGRESS_REPORTING_INTERVAL, TimeUnit.SECONDS);
 
     IntStream.range(0, NUMBER_OF_THREADS).forEach(ignore ->
-        executorService.submit(() -> {
+        completionService.submit(() -> {
           while (true) {
             for (int j = 0; j < RECORDS_PER_STOCK; j++) {
               for (int i = 0; i < NUMBER_OF_STOCKS; i++) {

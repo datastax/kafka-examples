@@ -115,7 +115,7 @@ public class InfiniteAvroProducer {
     log.info("start sending {} records per second", maxRequestsPerSecond);
 
     IntStream.range(0, NUMBER_OF_THREADS).forEach(ignore ->
-        executorService.submit(() -> {
+        completionService.submit(() -> {
           while (true) {
             GenericRecord thisKeyRecord = new GenericData.Record(avroKeySchema);
             GenericRecord thisValueRecord = new GenericData.Record(avroValueSchema);
