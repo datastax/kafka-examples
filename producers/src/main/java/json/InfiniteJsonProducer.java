@@ -97,7 +97,11 @@ public class InfiniteJsonProducer {
                 TickData tickData = generator.getStockWithRandomValue(i);
                 tickData.setDateTime();
                 rateLimiter.acquire();
-                producer.send(new ProducerRecord<>(TOPIC, tickData.getName(), mapper.valueToTree(tickData)), postSender);
+                try {
+                  producer.send(new ProducerRecord<>(TOPIC, tickData.getName(), mapper.valueToTree(tickData)), postSender);
+                } catch (Exception ex) {
+                  log.warn("problem when send - ignoring", ex);
+                }
               }
             }
           }

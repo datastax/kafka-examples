@@ -129,7 +129,12 @@ public class InfiniteAvroProducer {
             thisKeyRecord.put("key", Long.toString(ID_GENERATOR.incrementAndGet()));
 
             rateLimiter.acquire();
-            producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
+            try {
+              producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
+            } catch (Exception ex) {
+              log.warn("problem when send - ignoring", ex);
+
+            }
           }
         }));
     //block indefinitely
