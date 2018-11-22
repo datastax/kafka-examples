@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -36,8 +38,9 @@ public class InfiniteJsonProducer {
 
   private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();
   private static final ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+  private static final CompletionService completionService = new ExecutorCompletionService(executorService);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
 
     if (args.length != 1) {
       throw new IllegalArgumentException("you need to supply one number that is maxRequestsPerSecond");
@@ -99,5 +102,8 @@ public class InfiniteJsonProducer {
             }
           }
         }));
+
+    //block indefinitely
+    completionService.take();
   }
 }

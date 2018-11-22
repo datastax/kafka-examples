@@ -16,13 +16,19 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 /***
@@ -43,8 +49,9 @@ public class InfiniteAvroProducer {
   private static Logger log = LoggerFactory.getLogger("InfiniteBigAvroProducer");
   private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();
   private static final ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+  private static final CompletionService completionService = new ExecutorCompletionService(executorService);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
 
     if (args.length != 1) {
       throw new IllegalArgumentException("you need to supply one number that is maxRequestsPerSecond");
@@ -125,5 +132,7 @@ public class InfiniteAvroProducer {
             producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
           }
         }));
+    //block indefinitely
+    completionService.take();
   }
 }
