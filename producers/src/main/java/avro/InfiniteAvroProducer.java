@@ -47,11 +47,8 @@ public class InfiniteAvroProducer {
   private static final long PROGRESS_REPORTING_INTERVAL = 5;
 
   private static Logger log = LoggerFactory.getLogger("InfiniteBigAvroProducer");
-  private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();
-  private static final ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-  private static final CompletionService completionService = new ExecutorCompletionService(executorService);
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
 
     if (args.length != 1) {
       throw new IllegalArgumentException("you need to supply one number that is maxRequestsPerSecond");
@@ -114,30 +111,27 @@ public class InfiniteAvroProducer {
 
     log.info("start sending {} records per second", maxRequestsPerSecond);
 
-    IntStream.range(0, NUMBER_OF_THREADS).forEach(ignore ->
-        completionService.submit(() -> {
-          while (true) {
-            GenericRecord thisKeyRecord = new GenericData.Record(avroKeySchema);
-            GenericRecord thisValueRecord = new GenericData.Record(avroValueSchema);
-            for (int j = 0; j < SEGMENTS_PER_RECORD; j++) {
-              GenericRecord nestedRecord = new GenericData.Record(avroValueSchema.getField("segment" + j).schema().getTypes().get(1));
-              for (int i = 0; i < FIELDS_PER_SEGMENT; i++) {
-                nestedRecord.put("segment" + j + "_" + i, Integer.toString(i));
-              }
-              thisValueRecord.put("segment" + j, nestedRecord);
-            }
-            thisKeyRecord.put("key", Long.toString(ID_GENERATOR.incrementAndGet()));
 
-            rateLimiter.acquire();
-            try {
-              producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
-            } catch (Exception ex) {
-              log.warn("problem when send - ignoring", ex);
+    while (true) {
+      GenericRecord thisKeyRecord = new GenericData.Record(avroKeySchema);
+      GenericRecord thisValueRecord = new GenericData.Record(avroValueSchema);
+      for (int j = 0; j < SEGMENTS_PER_RECORD; j++) {
+        GenericRecord nestedRecord = new GenericData.Record(avroValueSchema.getField("segment" + j).schema().getTypes().get(1));
+        for (int i = 0; i < FIELDS_PER_SEGMENT; i++) {
+          nestedRecord.put("segment" + j + "_" + i, Integer.toString(i));
+        }
+        thisValueRecord.put("segment" + j, nestedRecord);
+      }
+      thisKeyRecord.put("key", Long.toString(ID_GENERATOR.incrementAndGet()));
 
-            }
-          }
-        }));
-    //block indefinitely
-    completionService.take();
+      rateLimiter.acquire();
+      try {
+        producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
+      } catch (Exception ex) {
+        log.warn("problem when send - ignoring", ex);
+      }
+      //block indefinitely
+
+    }
   }
 }
