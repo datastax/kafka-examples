@@ -58,7 +58,6 @@ public class InfiniteAvroProducer {
     props.put(ProducerConfig.ACKS_CONFIG, "1");
 
     final KafkaProducer<GenericRecord, GenericRecord> producer = new KafkaProducer<>(props);
-    Runtime.getRuntime().addShutdownHook(new Thread(producer::close, "Shutdown-thread"));
 
     String schemaPath = "src/main/resources/avro/bigavro.asvc";
     String keySchemaString = "{\"type\": \"record\",\"name\": \"key\",\"fields\":[{\"type\": \"string\",\"name\": \"key\"}]}}";
