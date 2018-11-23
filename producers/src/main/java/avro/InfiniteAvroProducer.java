@@ -16,28 +16,19 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
 /***
  * start with:
- * mvn clean compile exec:java -Dexec.mainClass=avro.InfiniteAvroProducer -Dexec.args="10"
+ * mvn clean compile exec:java -Dexec.mainClass=avro.InfiniteAvroProducer -Dexec.args="10 t1"
  */
 public class InfiniteAvroProducer {
 
-  private static final String TOPIC = "avro-stream-infinite";
   private static final int SEGMENTS_PER_RECORD = 10;
   private static final int FIELDS_PER_SEGMENT = 10;
 
@@ -50,11 +41,13 @@ public class InfiniteAvroProducer {
 
   public static void main(String[] args) {
 
-    if (args.length != 1) {
-      throw new IllegalArgumentException("you need to supply one number that is maxRequestsPerSecond");
+    if (args.length != 2) {
+      throw new IllegalArgumentException("" +
+          "you need to supply [1]: number that is maxRequestsPerSecond, [2]: string topic name");
     }
 
     final int maxRequestsPerSecond = Integer.parseInt(args[0]);
+    final String topicName = args[1];
     final RateLimiter rateLimiter = RateLimiter.create(maxRequestsPerSecond);
 
     Properties props = new Properties();
@@ -109,7 +102,7 @@ public class InfiniteAvroProducer {
         () -> log.info("Successfully created {} Kafka records", successCount.get()),
         2, PROGRESS_REPORTING_INTERVAL, TimeUnit.SECONDS);
 
-    log.info("start sending {} records per second", maxRequestsPerSecond);
+    log.info("start sending {} records per second to topic: {}", maxRequestsPerSecond, topicName);
 
 
     while (true) {
@@ -126,7 +119,7 @@ public class InfiniteAvroProducer {
 
       rateLimiter.acquire();
       try {
-        producer.send(new ProducerRecord<>(TOPIC, thisKeyRecord, thisValueRecord), postSender);
+        producer.send(new ProducerRecord<>(topicName, thisKeyRecord, thisValueRecord), postSender);
       } catch (Exception ex) {
         log.warn("problem when send - ignoring", ex);
       }
