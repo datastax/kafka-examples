@@ -4,7 +4,7 @@
     "connector.class": "com.datastax.kafkaconnector.DseSinkConnector",
     "tasks.max": "1",
     "topics": "integer_stream",
-    "contactPoints": "10.200.182.234",
+    "contactPoints": "127.0.0.1",
     "loadBalancing.localDc": "Cassandra",
     "topic.integer_stream.kafka_examples.integer_table.mapping": "recordid=key, continent=value",
     "topic.integer_stream.kafka_examples.integer_table.consistencyLevel": "LOCAL_QUORUM"
