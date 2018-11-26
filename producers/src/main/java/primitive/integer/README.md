@@ -57,7 +57,7 @@ curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/sr
 
 Below is the Connector Mapping in `dse-sink-integer.json`
 ```
-topic.integer_stream.kafka_examples.integer_table.mapping=recordid=key,continent=value
+"topic.integer_stream.kafka_examples.integer_table.mapping": "recordid=key, continent=value"
 ```
 
 Confirm rows in DSE
