@@ -9,6 +9,12 @@
 
 `dse-sink.json` - DataStax Connector configuration file for the json example
 
+`ticks/TickData.java` - Java Object representing a stock tick
+
+`ticks/TickGenerator.java` - Uses the stocks in `resources/json/csv/exchangedata.csv` to create random tick values
+
+`utils/ExchangeUtils.java` - Reads the stocks in `resources/json/csv/exchangedata.csv`
+
 ## Data Details
 Both the `JsonProducer` and `InfiniteJsonProducer` create 500 stocks, set within the files by `NUMBER_OF_STOCKS`.
 
