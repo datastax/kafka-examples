@@ -1,11 +1,11 @@
 # Primitive String Example
 
 ## File Details
-StringProducer.java - Uses Kafka Clients Producer API to write 1000 records to Kafka Topic named string_stream
+`StringProducer.java` - Uses Kafka Clients Producer API to write 1000 records to Kafka Topic named string_stream
 
-connect-distributed-string.properties - Kafka Connect Worker configuration file for the string example
+`connect-distributed-string.properties` - Kafka Connect Worker configuration file for the string example
 
-dse-sink-string.json - DataStax Connector configuration file for the string example
+`dse-sink-string.json` - DataStax Connector configuration file for the string example
 
 ## Steps
 Create "string_stream" Topic
@@ -20,7 +20,7 @@ mvn clean compile exec:java -Dexec.mainClass=primitive.string.StringProducer
 PrimitiveProducer:89 - Completed loading 1000/1000 records to Kafka in 0 seconds
 ```
 
-Observe records in "string-stream" Topic
+Observe records in "string_stream" Topic
 ```
 kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --max-messages 5 --topic string_stream
 record-id-0	Australia
