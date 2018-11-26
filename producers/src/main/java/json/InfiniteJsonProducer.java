@@ -16,19 +16,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
-import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.IntStream;
 
+/**
+ * start with:
+ * mvn clean compile exec:java -Dexec.mainClass=json.InfiniteJsonProducer -Dexec.args="5 topic-1 localhost:9092"
+ */
 
 public class InfiniteJsonProducer {
 
-  private static final String TOPIC = "json-stream-infinite";
   private static final int RECORDS_PER_STOCK = 2_000_000;
   private static final int NUMBER_OF_STOCKS = 500;
   // Report number of records sent every this many seconds.
@@ -36,27 +35,27 @@ public class InfiniteJsonProducer {
 
   private static Logger log = LoggerFactory.getLogger("JsonProducer");
 
-  private static final int NUMBER_OF_THREADS = Runtime.getRuntime().availableProcessors();
-  private static final ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-  private static final CompletionService completionService = new ExecutorCompletionService(executorService);
+  public static void main(String[] args) {
 
-  public static void main(String[] args) throws InterruptedException {
-
-    if (args.length != 1) {
-      throw new IllegalArgumentException("you need to supply one number that is maxRequestsPerSecond");
+    if (args.length != 3) {
+      throw new IllegalArgumentException("" +
+          "you need to supply " +
+          "[1]: number that is maxRequestsPerSecond, " +
+          "[2]: string topic name" +
+          "[3]: kafka bootstrap.servers");
     }
 
     final int maxRequestsPerSecond = Integer.parseInt(args[0]);
+    final String topicName = args[1];
     final RateLimiter rateLimiter = RateLimiter.create(maxRequestsPerSecond);
 
     Properties props = new Properties();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, args[2]);
     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
     props.put(ProducerConfig.ACKS_CONFIG, "1");
 
     final KafkaProducer<String, JsonNode> producer = new KafkaProducer<>(props);
-    Runtime.getRuntime().addShutdownHook(new Thread(producer::close, "Shutdown-thread"));
 
     TickGenerator generator = new TickGenerator(ExchangeUtils.getExchangeData());
 
@@ -89,25 +88,21 @@ public class InfiniteJsonProducer {
         () -> log.info("Successfully created {} Kafka records", successCount.get()),
         2, PROGRESS_REPORTING_INTERVAL, TimeUnit.SECONDS);
 
-    IntStream.range(0, NUMBER_OF_THREADS).forEach(ignore ->
-        completionService.submit(() -> {
-          while (true) {
-            for (int j = 0; j < RECORDS_PER_STOCK; j++) {
-              for (int i = 0; i < NUMBER_OF_STOCKS; i++) {
-                TickData tickData = generator.getStockWithRandomValue(i);
-                tickData.setDateTime();
-                rateLimiter.acquire();
-                try {
-                  producer.send(new ProducerRecord<>(TOPIC, tickData.getName(), mapper.valueToTree(tickData)), postSender);
-                } catch (Exception ex) {
-                  log.warn("problem when send - ignoring", ex);
-                }
-              }
-            }
-          }
-        }));
 
-    //block indefinitely
-    completionService.take();
+    while (true) {
+      for (int j = 0; j < RECORDS_PER_STOCK; j++) {
+        for (int i = 0; i < NUMBER_OF_STOCKS; i++) {
+          TickData tickData = generator.getStockWithRandomValue(i);
+          tickData.setDateTime();
+          rateLimiter.acquire();
+          try {
+            producer.send(new ProducerRecord<>(topicName, tickData.getName(), mapper.valueToTree(tickData)), postSender);
+          } catch (Exception ex) {
+            log.warn("problem when send - ignoring", ex);
+          }
+        }
+      }
+    }
   }
+  //block indefinitely
 }
