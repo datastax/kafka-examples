@@ -57,7 +57,7 @@ curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/sr
 
 Below is the Connector Mapping in `dse-sink-string.json`
 ```
-topic.string_stream.kafka_examples.string_table.mapping=recordid=key,continent=value
+"topic.string_stream.kafka_examples.string_table.mapping": "recordid=key, continent=value"
 ```
 
 Confirm rows in DSE
