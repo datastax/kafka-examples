@@ -1,5 +1,11 @@
 # Primitive String Example
 
+## File Details
+StringProducer.java - Uses Kafka Clients Producer API to write 1000 records to Kafka Topic named string_stream
+connect-distributed-string.properties - Kafka Connect Worker configuration file for the string example
+dse-sink-string.json - DataStax Connector configuration file for the string example
+
+## Steps
 Create "string_stream" Topic
 ```
 kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic string_stream --config retention.ms=-1
@@ -23,7 +29,7 @@ record-id-4	Asia
 Processed a total of 5 messages
 ```
 
-Create DSE Schema
+Create DSE Schema in cqlsh
 ```
 create keyspace if not exists kafka_examples with replication = {'class': 'NetworkTopologyStrategy', 'Cassandra': 1};
 create table if not exists kafka_examples.string_table (recordid text, continent text, primary key(recordid));
@@ -34,7 +40,7 @@ Start Kafka Connect Worker
 kafka/bin/connect-distributed.sh kafka-examples/producers/src/main/java/primitive/string/connect-distributed-string.properties &> worker-string-example.log &
 ```
 
-In this case, the following was configured in the worker configuration file.
+Below is the Converter configuration in `connect-distributed-string.properties`
 ```
 key.converter=org.apache.kafka.connect.storage.StringConverter
 value.converter=org.apache.kafka.connect.storage.StringConverter
@@ -42,13 +48,15 @@ value.converter=org.apache.kafka.connect.storage.StringConverter
 
 Create/Start Connector
 ```
-curl -X POST -H "Content-Type: application/json" -d @kafka-examples-connector-configs/dse-sink-string.json "http://localhost:8083/connectors"
+curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/primitive/string/dse-sink-string.json "http://localhost:8083/connectors"
 ...
-{"name":"dse-connector-string-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"1","topics":"string_stream","contactPoints":"10.200.182.234","loadBalancing.localDc":"Cassandra","topic.string_stream.kafka_examples.string_table.mapping":"recordid=key, continent=value","topic.string_stream.kafka_examples.string_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-string-example"},"tasks":[],"type":null}
+{"name":"dse-connector-string-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"1","topics":"string_stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.string_stream.kafka_examples.string_table.mapping":"recordid=key, continent=value","topic.string_stream.kafka_examples.string_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-string-example"},"tasks":[],"type":null}
 ```
 
-Connector Mapping
+Below is the Connector Mapping in `dse-sink-string.json`
+```
 topic.string_stream.kafka_examples.string_table.mapping=recordid=key,continent=value
+```
 
 Confirm rows in DSE
 ```
