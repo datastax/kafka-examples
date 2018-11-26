@@ -2,7 +2,9 @@
 
 ## File Details
 StringProducer.java - Uses Kafka Clients Producer API to write 1000 records to Kafka Topic named string_stream
+
 connect-distributed-string.properties - Kafka Connect Worker configuration file for the string example
+
 dse-sink-string.json - DataStax Connector configuration file for the string example
 
 ## Steps
