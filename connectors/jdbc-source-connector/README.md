@@ -62,6 +62,7 @@ curl -X POST -H "Content-Type: application/json" -d @dse-sink-jdbc-with-schema.j
 ```
 
 Verify records in DSE
+```
 cqlsh> select * from kafka_examples.addresses_with_schema ;
 
  person_id | city   | first_name | last_name  | street
@@ -73,7 +74,7 @@ cqlsh> select * from kafka_examples.addresses_with_schema ;
          3 | boston |      chris |       sale | 41 yawkey way
 
 (5 rows)
-
+```
 
 ## JSON Records without Schema Steps
 
@@ -115,6 +116,7 @@ curl -X POST -H "Content-Type: application/json" -d @dse-sink-jdbc-without-schem
 ```
 
 Verify records in DSE
+```
 cqlsh> select * from kafka_examples.addresses_without_schema ;
 
  person_id | city   | first_name | last_name  | street
@@ -126,4 +128,5 @@ cqlsh> select * from kafka_examples.addresses_without_schema ;
          3 | boston |      chris |       sale | 41 yawkey way
 
 (5 rows)
+```
 
