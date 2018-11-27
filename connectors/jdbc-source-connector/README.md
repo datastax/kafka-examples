@@ -2,6 +2,20 @@
 
 ## File Details
 
+### JSON Records With Schema Files
+`connect-distributed-jdbc-with-schema.properties` - Kafka Connect Worker configuration file, uses `value.converter.schemas.enable=true`
+
+`jdbc-postgresql-source-with-schema.json` - JDBC Connector configuration file for JSON Records With Schema example
+
+`dse-sink-jdbc-with-schema.json` - DataStax Connector file for JSON Records With Schema example
+
+### JSON Records Without Schema Files
+`connect-distributed-jdbc-without-schema.properties` - Kafka Connect Worker configuration file, uses `value.converter.schemas.enable=false`
+
+`jdbc-postgresql-source-without-schema.json` - JDBC Connector configuration file for JSON Records Without Schema example
+
+`dse-sink-jdbc-without-schema.json` - DataStax Connector file for JSON Records Without Schema example
+
 ## Prerequsites
 1. Kafka installed and started
 2. PostgresSQL installed ( https://www.postgresql.org/download/ )
@@ -88,7 +102,7 @@ Start the JDBC Connector
 ```
 curl -X POST -H "Content-Type: application/json" -d @jdbc-source-without-schema.json "http://localhost:8083/connectors"
 ...
-{"name":"jdbc-postgres-source-no-schema-connector","config":{"connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector","tasks.max":"1","mode":"bulk","connection.url":"jdbc:postgresql://localhost:5432/customers?user=postgres&password=newpass","table.whitelist":"addresses","topic.prefix":"jdbc-postgresql-no-schema-example-","name":"jdbc-postgres-source-no-schema-connector"},"tasks":[],"type":null}
+{"name":"jdbc-postgres-source-without-schema-connector","config":{"connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector","tasks.max":"1","mode":"bulk","connection.url":"jdbc:postgresql://localhost:5432/customers?user=postgres&password=newpass","table.whitelist":"addresses","topic.prefix":"jdbc-postgresql-without-schema-example-","name":"jdbc-postgres-source-without-schema-connector"},"tasks":[],"type":null}
 ```
 
 Verify records in Kafka
