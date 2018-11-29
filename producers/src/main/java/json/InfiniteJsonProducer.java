@@ -93,7 +93,7 @@ public class InfiniteJsonProducer {
       for (int j = 0; j < RECORDS_PER_STOCK; j++) {
         for (int i = 0; i < NUMBER_OF_STOCKS; i++) {
           TickData tickData = generator.getStockWithRandomValue(i);
-          tickData.setDateTime();
+          tickData.setDatetime();
           rateLimiter.acquire();
           try {
             producer.send(new ProducerRecord<>(topicName, tickData.getName(), mapper.valueToTree(tickData)), postSender);

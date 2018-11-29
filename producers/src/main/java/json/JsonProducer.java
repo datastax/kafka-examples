@@ -86,7 +86,7 @@ public class JsonProducer {
         for (int j = 0; j < RECORDS_PER_STOCK; j++) {
             for (int i = 0; i < NUMBER_OF_STOCKS; i++) {
                 TickData tickData = generator.getStockWithRandomValue(i);
-                tickData.setDateTime();
+                tickData.setDatetime();
                 producer.send(new ProducerRecord<>(TOPIC, tickData.getName(), mapper.valueToTree(tickData)), postSender);
             }
         }

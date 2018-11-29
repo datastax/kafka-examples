@@ -34,7 +34,7 @@ Create "json-stream" Topic
 ```
 kafka/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 100 --topic json-stream --config retention.ms=-1
 ```
-* Note: the number of partitions affects the parallelism factor of the DataStax Connector. See docs.
+* Note: the number of partitions affects the parallelism factor of the DataStax Connector. See docs - https://docs.datastax.com/en/kafka/doc.
 
 Run JsonProducer, from `kafka-examples/producers`
 ```
@@ -47,10 +47,21 @@ mvn clean compile exec:java -Dexec.mainClass=json.InfiniteJsonProducer -Dexec.ar
 ```
 * Note: -Dexec.args="5 json-stream localhost:9092" ( 5=maxRequestsPerSecond | json-stream=Topic Name | localhost:9092=bootstrap servers )
 
+Verify Records in `json-stream`
+```
+kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --property print.key=true --max-messages 5 --topic json-stream
+WALMART	{"name":"WALMART","symbol":"WMT","value":89.80096928571885,"exchange":"NYSE","industry":"RETAIL","datetime":"2018-11-29T20:58:37.873"}
+BERKSHIRE HATHAWAY	{"name":"BERKSHIRE HATHAWAY","symbol":"BRK.A","value":302576.97150908393,"exchange":"NYSE","industry":"FINANCE","datetime":"2018-11-29T20:58:38.873"}
+APPLE	{"name":"APPLE","symbol":"APPL","value":207.69573976526948,"exchange":"NASDAQ","industry":"TECH","datetime":"2018-11-29T20:58:39.873"}
+EXXON MOBIL	{"name":"EXXON MOBIL","symbol":"XOM","value":80.55810525493033,"exchange":"NYSE","industry":"ENERGY","datetime":"2018-11-29T20:58:40.873"}
+MCKESSON	{"name":"MCKESSON","symbol":"MCK","value":124.95785820714305,"exchange":"NYSE","industry":"HEALTH","datetime":"2018-11-29T20:58:41.873"}
+Processed a total of 5 messages
+```
+
 Create DSE Schema in cqlsh
 ```
 create keyspace if not exists stocks with replication = {'class': 'NetworkTopologyStrategy', 'Cassandra': 1};
-create table if not exists stocks.ticks (symbol text, ts timestamp, exchange text, industry text, name text, value double, PRIMARY KEY (symbol, ts));
+create table if not exists stocks.ticks (symbol text, datetime timestamp, exchange text, industry text, name text, value double, PRIMARY KEY (symbol, ts));
 ```
 
 Start Kafka Connect Worker
@@ -67,19 +78,19 @@ value.converter=org.apache.kafka.connect.json.JsonConverter
 Create/Start Connector
 ```
 curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/json/dse-sink.json "http://localhost:8083/connectors"
-{"name":"dse-connector-json-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"100","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.stocks.ticks.mapping":"name=key, symbol=value.symbol, ts=value.dateTime, exchange=value.exchange, industry=value.industry, value=value.value","topic.json-stream.stocks.ticks.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-json-example"},"tasks":[],"type":null}
+{"name":"dse-connector-json-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"100","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.stocks.ticks.mapping":"name=key, symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, value=value.value","topic.json-stream.stocks.ticks.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-json-example"},"tasks":[],"type":null}
 ```
 
 Below is the Connector Mapping in `dse-sink.json`
 ```
-"topic.json-stream.stocks.ticks.mapping": "name=key, symbol=value.symbol, ts=value.dateTime, exchange=value.exchange, industry=value.industry, value=value.value"
+"topic.json-stream.stocks.ticks.mapping": "name=key, symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, value=value.value"
 ```
 
 Confirm rows in DSE
 ```
 cqlsh> select * from stocks.ticks limit 10;
 
- symbol | ts                              | exchange | industry  | name        | value
+ symbol | datetime                        | exchange | industry  | name        | value
 --------+---------------------------------+----------+-----------+-------------+----------
    DLTR | 2018-11-26 19:18:34.483000+0000 |   NASDAQ | RETAILING | DOLLAR TREE | 86.40502
    DLTR | 2018-11-26 19:26:54.483000+0000 |   NASDAQ | RETAILING | DOLLAR TREE | 85.94761

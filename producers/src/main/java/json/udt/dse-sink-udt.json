@@ -1,0 +1,12 @@
+{
+  "name": "dse-connector-udt-example",
+  "config": {
+    "connector.class": "com.datastax.kafkaconnector.DseSinkConnector",
+    "tasks.max": "1",
+    "topics": "json-stream",
+    "contactPoints": "127.0.0.1",
+    "loadBalancing.localDc": "Cassandra",
+    "topic.json-stream.kafka_examples.stocks_udt_table.mapping": "name=key, stocks=value",
+    "topic.json-stream.kafka_examples.stocks_udt_table.consistencyLevel": "LOCAL_QUORUM"
+  }
+}
