@@ -16,6 +16,8 @@ In the `producers` directory are examples that use the Kafka Clients Producer AP
 
 `producers/src/main/java/json/udt` - Example using JsonSerializer / JsonConverter + mapping regular JSON to UDT in DSE
 
+`producers/src/main/java/json/single-topic-multi-table` - Example using JsonSerializer / JsonConverter + mapping regular JSON topic to multiple tables in DSE
+
 `producers/src/main/java/primitive/string` - Example using StringSerializer / StringConverter
 
 `producers/src/main/java/primitive/integer` - Example using IntegerSerializer / IntegerConverter
