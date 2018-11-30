@@ -44,11 +44,11 @@ public class TickData {
         return industry;
     }
 
-    public String getDateTime() {
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDateTime(){
+    public void setDatetime(){
         this.datetime = BASE_TIME.plus(TIME_OFFSET.incrementAndGet(), ChronoUnit.SECONDS).toString();
     }
 
