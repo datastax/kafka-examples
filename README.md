@@ -1,4 +1,11 @@
 # kafka-examples
+This repository contains examples of using the DataStax Apache Kafka Connector. 
+
+Documentation - https://docs.datastax.com/en/kafka/doc
+
+Download - https://academy.datastax.com/downloads#connectors
+
+Slack - https://academy.datastax.com/slack #kafka-connector
 
 ## Kafka Clients - Producer API
 In the `producers` directory are examples that use the Kafka Clients Producer API and take the written records and persist them to DataStax Enterprise using the DataStax Apache Kafka Connector
