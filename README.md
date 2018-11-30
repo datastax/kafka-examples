@@ -5,7 +5,9 @@ In the `producers` directory are examples that use the Kafka Clients Producer AP
 
 `producers/src/main/java/avro` - Example using KafkaAvroSerializer and AvroConverter
 
-`producers/src/main/java/json` - Example using JsonSerializer and JsonConverter
+`producers/src/main/java/json` - Example using JsonSerializer and JsonConverter + regular JSON record
+
+`producers/src/main/java/json/udt` - Example using JsonSerializer and JsonConverter + mapping regular JSON to UDT in DSE
 
 `producers/src/main/java/primitive/string` - Example using StringSerializer and StringConverter
 
