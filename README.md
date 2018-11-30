@@ -4,6 +4,7 @@ This repository contains examples of using the DataStax Apache Kafka Connector.
 Documentation - https://docs.datastax.com/en/kafka/doc
 
 Download - https://academy.datastax.com/downloads#connectors
+- Note - Requires DataStax Academy account
 
 Slack - https://academy.datastax.com/slack #kafka-connector
 
