@@ -3,15 +3,15 @@
 ## Kafka Clients - Producer API
 In the `producers` directory are examples that use the Kafka Clients Producer API and take the written records and persist them to DataStax Enterprise using the DataStax Apache Kafka Connector
 
-`producers/src/main/java/avro` - Example using KafkaAvroSerializer and AvroConverter
+`producers/src/main/java/avro` - Example using KafkaAvroSerializer / AvroConverter
 
-`producers/src/main/java/json` - Example using JsonSerializer and JsonConverter + regular JSON record
+`producers/src/main/java/json` - Example using JsonSerializer / JsonConverter + regular JSON record
 
-`producers/src/main/java/json/udt` - Example using JsonSerializer and JsonConverter + mapping regular JSON to UDT in DSE
+`producers/src/main/java/json/udt` - Example using JsonSerializer / JsonConverter + mapping regular JSON to UDT in DSE
 
-`producers/src/main/java/primitive/string` - Example using StringSerializer and StringConverter
+`producers/src/main/java/primitive/string` - Example using StringSerializer / StringConverter
 
-`producers/src/main/java/primitive/integer` - Example using IntegerSerializer and IntegerConverter
+`producers/src/main/java/primitive/integer` - Example using IntegerSerializer / IntegerConverter
 
 ## Kafka Source Connectors
 In the `connectors` directory are examples that use Kafka Source Connectors and take the written records and persist them to DataStax Enterprise using the DataStax Apache Kafka Connector
