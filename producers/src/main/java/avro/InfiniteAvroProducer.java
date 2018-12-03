@@ -59,7 +59,7 @@ public class InfiniteAvroProducer {
 
     final KafkaProducer<GenericRecord, GenericRecord> producer = new KafkaProducer<>(props);
 
-    String schemaPath = "src/main/resources/avro/bigavro.asvc";
+    String schemaPath = "src/main/java/avro/bigavro.asvc";
     String keySchemaString = "{\"type\": \"record\",\"name\": \"key\",\"fields\":[{\"type\": \"string\",\"name\": \"key\"}]}}";
     String valueSchemaString = "";
 

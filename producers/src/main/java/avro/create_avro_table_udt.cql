@@ -1,4 +1,6 @@
-CREATE type stocks.segment0_udt (
+create keyspace if not exists kafka_examples with replication = {'class': 'NetworkTopologyStrategy', 'Cassandra': 1};
+
+CREATE type if not exists kafka_examples.segment0_udt (
 segment0_0 text,
 segment0_1 text,
 segment0_2 text,
@@ -11,7 +13,7 @@ segment0_8 text,
 segment0_9 text
 );
 
-CREATE type stocks.segment1_udt (
+CREATE type if not exists kafka_examples.segment1_udt (
 segment1_0 text,
 segment1_1 text,
 segment1_2 text,
@@ -24,7 +26,7 @@ segment1_8 text,
 segment1_9 text
 );
 
-CREATE type stocks.segment2_udt (
+CREATE type if not exists kafka_examples.segment2_udt (
 segment2_0 text,
 segment2_1 text,
 segment2_2 text,
@@ -37,7 +39,7 @@ segment2_8 text,
 segment2_9 text
 );
 
-CREATE type stocks.segment3_udt (
+CREATE type if not exists kafka_examples.segment3_udt (
 segment3_0 text,
 segment3_1 text,
 segment3_2 text,
@@ -50,7 +52,7 @@ segment3_8 text,
 segment3_9 text
 );
 
-CREATE type stocks.segment4_udt (
+CREATE type if not exists kafka_examples.segment4_udt (
 segment4_0 text,
 segment4_1 text,
 segment4_2 text,
@@ -63,7 +65,7 @@ segment4_8 text,
 segment4_9 text
 );
 
-CREATE type stocks.segment5_udt (
+CREATE type if not exists kafka_examples.segment5_udt (
 segment5_0 text,
 segment5_1 text,
 segment5_2 text,
@@ -75,7 +77,7 @@ segment5_7 text,
 segment5_8 text,
 segment5_9 text
 );
-CREATE type stocks.segment6_udt (
+CREATE type if not exists kafka_examples.segment6_udt (
 segment6_0 text,
 segment6_1 text,
 segment6_2 text,
@@ -87,7 +89,7 @@ segment6_7 text,
 segment6_8 text,
 segment6_9 text
 );
-CREATE type stocks.segment7_udt (
+CREATE type if not exists kafka_examples.segment7_udt (
 segment7_0 text,
 segment7_1 text,
 segment7_2 text,
@@ -99,7 +101,7 @@ segment7_7 text,
 segment7_8 text,
 segment7_9 text
 );
-CREATE type stocks.segment8_udt (
+CREATE type if not exists kafka_examples.segment8_udt (
 segment8_0 text,
 segment8_1 text,
 segment8_2 text,
@@ -112,7 +114,7 @@ segment8_8 text,
 segment8_9 text
 );
 
-CREATE type stocks.segment9_udt (
+CREATE type if not exists kafka_examples.segment9_udt (
 segment9_0 text,
 segment9_1 text,
 segment9_2 text,
@@ -125,18 +127,16 @@ segment9_8 text,
 segment9_9 text
 );
 
-
-#create table with UDT
-create table stocks.avro_data_udt(
+create table if not exists kafka_examples.avro_udt_table (
 id int PRIMARY KEY,
-udt_col0 segment0_udt,
-udt_col1 segment1_udt,
-udt_col2 segment2_udt,
-udt_col3 segment3_udt,
-udt_col4 segment4_udt,
-udt_col5 segment5_udt,
-udt_col6 segment6_udt,
-udt_col7 segment7_udt,
-udt_col8 segment8_udt,
-udt_col9 segment9_udt
+udt_col0 FROZEN<segment0_udt>,
+udt_col1 FROZEN<segment1_udt>,
+udt_col2 FROZEN<segment2_udt>,
+udt_col3 FROZEN<segment3_udt>,
+udt_col4 FROZEN<segment4_udt>,
+udt_col5 FROZEN<segment5_udt>,
+udt_col6 FROZEN<segment6_udt>,
+udt_col7 FROZEN<segment7_udt>,
+udt_col8 FROZEN<segment8_udt>,
+udt_col9 FROZEN<segment9_udt>
 );
