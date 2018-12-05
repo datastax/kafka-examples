@@ -1,0 +1,12 @@
+{
+  "name": "dse-connector-json-example",
+  "config": {
+    "connector.class": "com.datastax.kafkaconnector.DseSinkConnector",
+    "tasks.max": "100",
+    "topics": "json-stream",
+    "contactPoints": "127.0.0.1",
+    "loadBalancing.localDc": "Cassandra",
+    "topic.json-stream.stocks.ticks.mapping": "name=key, symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, value=value.value",
+    "topic.json-stream.stocks.ticks.consistencyLevel": "LOCAL_QUORUM"
+  }
+}
