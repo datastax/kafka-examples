@@ -1,5 +1,9 @@
 # Kafka Clients Producer API - Avro Example
 
+## Want to run the example automatically?
+
+See [avro_example.sh](https://github.com/datastax/kafka-examples/edit/master/producers/src/main/java/avro/avro_example.sh) and [avro_script_output.txt](https://github.com/datastax/kafka-examples/edit/master/producers/src/main/java/avro/avro_script_output.txt) for details
+
 ## Prerequsites
 1. Kafka installed and started ( https://kafka.apache.org/quickstart )
 2. Schema Registry installed and started ( https://docs.confluent.io/current/schema-registry/docs/installation.html )
