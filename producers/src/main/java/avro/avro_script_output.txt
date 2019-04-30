@@ -1,0 +1,289 @@
+automaton@node0$ ACADEMY_USERNAME=<username> ACADEMY_DOWNLOAD_KEY=<download-key> ./avro_example.sh
+
+----------------------------------------
+---        INSTALLING CONFLUENT      ---
+----------------------------------------
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  318M  100  318M    0     0  28.0M      0  0:00:11  0:00:11 --:--:-- 29.0M
+
+----------------------------------------
+---   INSTALLING DATASTAX CONNECTOR  ---
+----------------------------------------
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 25.3M  100 25.3M    0     0  18.7M      0  0:00:01  0:00:01 --:--:-- 18.7M
+
+----------------------------------------
+---  INSTALLING DATASTAX ENTERPRISE  ---
+----------------------------------------
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   245  100   245    0     0    922      0 --:--:-- --:--:-- --:--:--   924
+100  878M  100  878M    0     0  27.5M      0  0:00:31  0:00:31 --:--:-- 70.4M
+
+----------------------------------------
+---  CLONING KAFKA-EXAMPLES GITHUB   ---
+----------------------------------------
+Cloning into 'kafka-examples'...
+remote: Enumerating objects: 52, done.
+remote: Counting objects: 100% (52/52), done.
+remote: Compressing objects: 100% (43/43), done.
+remote: Total 73 (delta 20), reused 26 (delta 6), pack-reused 21
+Unpacking objects: 100% (73/73), done.
+Checking connectivity... done.
+
+----------------------------------------
+---         STARTING ZOOKEEPER       ---
+----------------------------------------
+[16:38:18]: Waiting for zookeeper to listen on port 2181
+
+----------------------------------------
+---       STARTING KAFKA BROKER      ---
+----------------------------------------
+[16:38:30]: Waiting for broker to listen on port 9092
+[16:38:32]: Waiting for broker to listen on port 9092
+
+----------------------------------------
+---    INSTALLING SCHEMA REGISTRY    ---
+----------------------------------------
+[16:38:34]: Waiting for schema-registry to listen on port 8081
+[16:38:36]: Waiting for schema-registry to listen on port 8081
+[16:38:38]: Waiting for schema-registry to listen on port 8081
+[16:38:40]: Waiting for schema-registry to listen on port 8081
+
+----------------------------------------
+---   STARTING DATASTAX ENTERPRISE   ---
+----------------------------------------
+[16:38:42]: Waiting for dse to listen on port 9042
+[16:38:44]: Waiting for dse to listen on port 9042
+[16:38:46]: Waiting for dse to listen on port 9042
+[16:38:48]: Waiting for dse to listen on port 9042
+[16:38:50]: Waiting for dse to listen on port 9042
+[16:38:52]: Waiting for dse to listen on port 9042
+[16:38:54]: Waiting for dse to listen on port 9042
+[16:38:56]: Waiting for dse to listen on port 9042
+[16:38:58]: Waiting for dse to listen on port 9042
+[16:39:00]: Waiting for dse to listen on port 9042
+[16:39:02]: Waiting for dse to listen on port 9042
+[16:39:04]: Waiting for dse to listen on port 9042
+[16:39:06]: Waiting for dse to listen on port 9042
+[16:39:08]: Waiting for dse to listen on port 9042
+[16:39:10]: Waiting for dse to listen on port 9042
+[16:39:12]: Waiting for dse to listen on port 9042
+
+----------------------------------------
+---   STARTING KAFKA CONNECT WORKER  ---
+----------------------------------------
+[16:39:14]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:16]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:18]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:20]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:22]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:24]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:26]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:28]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:30]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:32]: Waiting for ConnectDistributed to listen on port 8083
+[16:39:34]: Waiting for ConnectDistributed to listen on port 8083
+
+----------------------------------------
+---    STARTING DATASTAX CONNECTOR   ---
+----------------------------------------
+{"name":"dse-connector-avro-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"10","topics":"avro-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.avro-stream.kafka_examples.avro_udt_table.mapping":"id=key.key, udt_col0=value.segment0,udt_col1=value.segment1,udt_col2=value.segment2,udt_col3=value.segment3,udt_col4=value.segment4,udt_col5=value.segment5,udt_col6=value.segment6,udt_col7=value.segment7,udt_col8=value.segment8,udt_col9=value.segment9","name":"dse-connector-avro-example"},"tasks":[],"type":"sink"}
+----------------------------------------
+--- CREATING KAFKA TOPIC avro-stream ---
+----------------------------------------
+Error while executing topic command : Topic 'avro-stream' already exists.
+[2019-04-30 16:39:40,454] ERROR org.apache.kafka.common.errors.TopicExistsException: Topic 'avro-stream' already exists.
+ (kafka.admin.TopicCommand$)
+
+----------------------------------------
+---       CREATING DSE SCHEMA        ---
+----------------------------------------
+
+create keyspace if not exists kafka_examples with replication = {'class': 'NetworkTopologyStrategy', 'Cassandra': 1}; CREATE type if not exists kafka_examples.segment0_udt ( segment0_0 text, segment0_1 text, segment0_2 text, segment0_3 text, segment0_4 text, segment0_5 text, segment0_6 text, segment0_7 text, segment0_8 text, segment0_9 text ); CREATE type if not exists kafka_examples.segment1_udt ( segment1_0 text, segment1_1 text, segment1_2 text, segment1_3 text, segment1_4 text, segment1_5 text, segment1_6 text, segment1_7 text, segment1_8 text, segment1_9 text ); CREATE type if not exists kafka_examples.segment2_udt ( segment2_0 text, segment2_1 text, segment2_2 text, segment2_3 text, segment2_4 text, segment2_5 text, segment2_6 text, segment2_7 text, segment2_8 text, segment2_9 text ); CREATE type if not exists kafka_examples.segment3_udt ( segment3_0 text, segment3_1 text, segment3_2 text, segment3_3 text, segment3_4 text, segment3_5 text, segment3_6 text, segment3_7 text, segment3_8 text, segment3_9 text ); CREATE type if not exists kafka_examples.segment4_udt ( segment4_0 text, segment4_1 text, segment4_2 text, segment4_3 text, segment4_4 text, segment4_5 text, segment4_6 text, segment4_7 text, segment4_8 text, segment4_9 text ); CREATE type if not exists kafka_examples.segment5_udt ( segment5_0 text, segment5_1 text, segment5_2 text, segment5_3 text, segment5_4 text, segment5_5 text, segment5_6 text, segment5_7 text, segment5_8 text, segment5_9 text ); CREATE type if not exists kafka_examples.segment6_udt ( segment6_0 text, segment6_1 text, segment6_2 text, segment6_3 text, segment6_4 text, segment6_5 text, segment6_6 text, segment6_7 text, segment6_8 text, segment6_9 text ); CREATE type if not exists kafka_examples.segment7_udt ( segment7_0 text, segment7_1 text, segment7_2 text, segment7_3 text, segment7_4 text, segment7_5 text, segment7_6 text, segment7_7 text, segment7_8 text, segment7_9 text ); CREATE type if not exists kafka_examples.segment8_udt ( segment8_0 text, segment8_1 text, segment8_2 text, segment8_3 text, segment8_4 text, segment8_5 text, segment8_6 text, segment8_7 text, segment8_8 text, segment8_9 text ); CREATE type if not exists kafka_examples.segment9_udt ( segment9_0 text, segment9_1 text, segment9_2 text, segment9_3 text, segment9_4 text, segment9_5 text, segment9_6 text, segment9_7 text, segment9_8 text, segment9_9 text ); create table if not exists kafka_examples.avro_udt_table ( id int PRIMARY KEY, udt_col0 FROZEN<segment0_udt>, udt_col1 FROZEN<segment1_udt>, udt_col2 FROZEN<segment2_udt>, udt_col3 FROZEN<segment3_udt>, udt_col4 FROZEN<segment4_udt>, udt_col5 FROZEN<segment5_udt>, udt_col6 FROZEN<segment6_udt>, udt_col7 FROZEN<segment7_udt>, udt_col8 FROZEN<segment8_udt>, udt_col9 FROZEN<segment9_udt> );
+
+----------------------------------------
+---      STARTING AVRO PRODUCER      ---
+----------------------------------------
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.datastax:kafka-examples:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-compiler-plugin is missing. @ line 12, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building kafka-examples 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ kafka-examples ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ kafka-examples ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ kafka-examples ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 9 source files to /home/automaton/kafka-examples/producers/target/classes
+[INFO] 
+[INFO] --- exec-maven-plugin:1.6.0:java (default-cli) @ kafka-examples ---
+2019-04-30 16:39:51 INFO  ProducerConfig:279 - ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	bootstrap.servers = [localhost:9092]
+	buffer.memory = 33554432
+	client.id = 
+	compression.type = none
+	connections.max.idle.ms = 540000
+	enable.idempotence = false
+	interceptor.classes = []
+	key.serializer = class io.confluent.kafka.serializers.KafkaAvroSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 0
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = https
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class io.confluent.kafka.serializers.KafkaAvroSerializer
+
+2019-04-30 16:39:51 INFO  KafkaAvroSerializerConfig:179 - KafkaAvroSerializerConfig values: 
+	schema.registry.url = [http://localhost:8081]
+	basic.auth.user.info = [hidden]
+	auto.register.schemas = true
+	max.schemas.per.subject = 1000
+	basic.auth.credentials.source = URL
+	schema.registry.basic.auth.user.info = [hidden]
+	value.subject.name.strategy = class io.confluent.kafka.serializers.subject.TopicNameStrategy
+	key.subject.name.strategy = class io.confluent.kafka.serializers.subject.TopicNameStrategy
+
+2019-04-30 16:39:51 INFO  KafkaAvroSerializerConfig:179 - KafkaAvroSerializerConfig values: 
+	schema.registry.url = [http://localhost:8081]
+	basic.auth.user.info = [hidden]
+	auto.register.schemas = true
+	max.schemas.per.subject = 1000
+	basic.auth.credentials.source = URL
+	schema.registry.basic.auth.user.info = [hidden]
+	value.subject.name.strategy = class io.confluent.kafka.serializers.subject.TopicNameStrategy
+	key.subject.name.strategy = class io.confluent.kafka.serializers.subject.TopicNameStrategy
+
+2019-04-30 16:39:52 INFO  AppInfoParser:109 - Kafka version : 2.0.0
+2019-04-30 16:39:52 INFO  AppInfoParser:110 - Kafka commitId : 3402a8361b734732
+2019-04-30 16:39:52 INFO  Metadata:273 - Cluster ID: mctujpW9SCOSe9GMr20u_g
+2019-04-30 16:39:54 INFO  BigAvroProducer:101 - Successfully created 129 Kafka records
+2019-04-30 16:39:55 INFO  BigAvroProducer:125 - Completed loading 1000/1000 records to Kafka in 3 seconds
+[WARNING] thread Thread[kafka-producer-network-thread | producer-1,5,avro.AvroProducer] was interrupted but is still alive after waiting at least 15000msecs
+[WARNING] thread Thread[kafka-producer-network-thread | producer-1,5,avro.AvroProducer] will linger despite being asked to die via interruption
+[WARNING] NOTE: 1 thread(s) did not finish despite being asked to  via interruption. This is not a problem with exec:java, it is a problem with the running code. Although not serious, it should be remedied.
+[WARNING] Couldn't destroy threadgroup org.codehaus.mojo.exec.ExecJavaMojo$IsolatedThreadGroup[name=avro.AvroProducer,maxpri=10]
+java.lang.IllegalThreadStateException
+	at java.lang.ThreadGroup.destroy(ThreadGroup.java:778)
+	at org.codehaus.mojo.exec.ExecJavaMojo.execute(ExecJavaMojo.java:321)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:134)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:207)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:153)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:145)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:116)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:80)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:51)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:307)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:193)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:106)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:863)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:288)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:199)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:289)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:229)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:415)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 21.999 s
+[INFO] Finished at: 2019-04-30T16:40:10+00:00
+[INFO] Final Memory: 27M/388M
+[INFO] ------------------------------------------------------------------------
+2019-04-30 16:40:10 INFO  KafkaProducer:1090 - [Producer clientId=producer-1] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+
+----------------------------------------
+---    VERIFYING RECORDS IN KAFKA    ---
+----------------------------------------
+{"key":"27"}	{"segment0":{"com.datastax.SEGMENT0":{"segment0_0":"0","segment0_1":"1","segment0_2":"2","segment0_3":"3","segment0_4":"4","segment0_5":"5","segment0_6":"6","segment0_7":"7","segment0_8":"8","segment0_9":"9"}},"segment1":{"com.datastax.SEGMENT1":{"segment1_0":"0","segment1_1":"1","segment1_2":"2","segment1_3":"3","segment1_4":"4","segment1_5":"5","segment1_6":"6","segment1_7":"7","segment1_8":"8","segment1_9":"9"}},"segment2":{"com.datastax.SEGMENT2":{"segment2_0":"0","segment2_1":"1","segment2_2":"2","segment2_3":"3","segment2_4":"4","segment2_5":"5","segment2_6":"6","segment2_7":"7","segment2_8":"8","segment2_9":"9"}},"segment3":{"com.datastax.SEGMENT3":{"segment3_0":"0","segment3_1":"1","segment3_2":"2","segment3_3":"3","segment3_4":"4","segment3_5":"5","segment3_6":"6","segment3_7":"7","segment3_8":"8","segment3_9":"9"}},"segment4":{"com.datastax.SEGMENT4":{"segment4_0":"0","segment4_1":"1","segment4_2":"2","segment4_3":"3","segment4_4":"4","segment4_5":"5","segment4_6":"6","segment4_7":"7","segment4_8":"8","segment4_9":"9"}},"segment5":{"com.datastax.SEGMENT5":{"segment5_0":"0","segment5_1":"1","segment5_2":"2","segment5_3":"3","segment5_4":"4","segment5_5":"5","segment5_6":"6","segment5_7":"7","segment5_8":"8","segment5_9":"9"}},"segment6":{"com.datastax.SEGMENT6":{"segment6_0":"0","segment6_1":"1","segment6_2":"2","segment6_3":"3","segment6_4":"4","segment6_5":"5","segment6_6":"6","segment6_7":"7","segment6_8":"8","segment6_9":"9"}},"segment7":{"com.datastax.SEGMENT7":{"segment7_0":"0","segment7_1":"1","segment7_2":"2","segment7_3":"3","segment7_4":"4","segment7_5":"5","segment7_6":"6","segment7_7":"7","segment7_8":"8","segment7_9":"9"}},"segment8":{"com.datastax.SEGMENT8":{"segment8_0":"0","segment8_1":"1","segment8_2":"2","segment8_3":"3","segment8_4":"4","segment8_5":"5","segment8_6":"6","segment8_7":"7","segment8_8":"8","segment8_9":"9"}},"segment9":{"com.datastax.SEGMENT9":{"segment9_0":"0","segment9_1":"1","segment9_2":"2","segment9_3":"3","segment9_4":"4","segment9_5":"5","segment9_6":"6","segment9_7":"7","segment9_8":"8","segment9_9":"9"}}}
+{"key":"30"}	{"segment0":{"com.datastax.SEGMENT0":{"segment0_0":"0","segment0_1":"1","segment0_2":"2","segment0_3":"3","segment0_4":"4","segment0_5":"5","segment0_6":"6","segment0_7":"7","segment0_8":"8","segment0_9":"9"}},"segment1":{"com.datastax.SEGMENT1":{"segment1_0":"0","segment1_1":"1","segment1_2":"2","segment1_3":"3","segment1_4":"4","segment1_5":"5","segment1_6":"6","segment1_7":"7","segment1_8":"8","segment1_9":"9"}},"segment2":{"com.datastax.SEGMENT2":{"segment2_0":"0","segment2_1":"1","segment2_2":"2","segment2_3":"3","segment2_4":"4","segment2_5":"5","segment2_6":"6","segment2_7":"7","segment2_8":"8","segment2_9":"9"}},"segment3":{"com.datastax.SEGMENT3":{"segment3_0":"0","segment3_1":"1","segment3_2":"2","segment3_3":"3","segment3_4":"4","segment3_5":"5","segment3_6":"6","segment3_7":"7","segment3_8":"8","segment3_9":"9"}},"segment4":{"com.datastax.SEGMENT4":{"segment4_0":"0","segment4_1":"1","segment4_2":"2","segment4_3":"3","segment4_4":"4","segment4_5":"5","segment4_6":"6","segment4_7":"7","segment4_8":"8","segment4_9":"9"}},"segment5":{"com.datastax.SEGMENT5":{"segment5_0":"0","segment5_1":"1","segment5_2":"2","segment5_3":"3","segment5_4":"4","segment5_5":"5","segment5_6":"6","segment5_7":"7","segment5_8":"8","segment5_9":"9"}},"segment6":{"com.datastax.SEGMENT6":{"segment6_0":"0","segment6_1":"1","segment6_2":"2","segment6_3":"3","segment6_4":"4","segment6_5":"5","segment6_6":"6","segment6_7":"7","segment6_8":"8","segment6_9":"9"}},"segment7":{"com.datastax.SEGMENT7":{"segment7_0":"0","segment7_1":"1","segment7_2":"2","segment7_3":"3","segment7_4":"4","segment7_5":"5","segment7_6":"6","segment7_7":"7","segment7_8":"8","segment7_9":"9"}},"segment8":{"com.datastax.SEGMENT8":{"segment8_0":"0","segment8_1":"1","segment8_2":"2","segment8_3":"3","segment8_4":"4","segment8_5":"5","segment8_6":"6","segment8_7":"7","segment8_8":"8","segment8_9":"9"}},"segment9":{"com.datastax.SEGMENT9":{"segment9_0":"0","segment9_1":"1","segment9_2":"2","segment9_3":"3","segment9_4":"4","segment9_5":"5","segment9_6":"6","segment9_7":"7","segment9_8":"8","segment9_9":"9"}}}
+{"key":"32"}	{"segment0":{"com.datastax.SEGMENT0":{"segment0_0":"0","segment0_1":"1","segment0_2":"2","segment0_3":"3","segment0_4":"4","segment0_5":"5","segment0_6":"6","segment0_7":"7","segment0_8":"8","segment0_9":"9"}},"segment1":{"com.datastax.SEGMENT1":{"segment1_0":"0","segment1_1":"1","segment1_2":"2","segment1_3":"3","segment1_4":"4","segment1_5":"5","segment1_6":"6","segment1_7":"7","segment1_8":"8","segment1_9":"9"}},"segment2":{"com.datastax.SEGMENT2":{"segment2_0":"0","segment2_1":"1","segment2_2":"2","segment2_3":"3","segment2_4":"4","segment2_5":"5","segment2_6":"6","segment2_7":"7","segment2_8":"8","segment2_9":"9"}},"segment3":{"com.datastax.SEGMENT3":{"segment3_0":"0","segment3_1":"1","segment3_2":"2","segment3_3":"3","segment3_4":"4","segment3_5":"5","segment3_6":"6","segment3_7":"7","segment3_8":"8","segment3_9":"9"}},"segment4":{"com.datastax.SEGMENT4":{"segment4_0":"0","segment4_1":"1","segment4_2":"2","segment4_3":"3","segment4_4":"4","segment4_5":"5","segment4_6":"6","segment4_7":"7","segment4_8":"8","segment4_9":"9"}},"segment5":{"com.datastax.SEGMENT5":{"segment5_0":"0","segment5_1":"1","segment5_2":"2","segment5_3":"3","segment5_4":"4","segment5_5":"5","segment5_6":"6","segment5_7":"7","segment5_8":"8","segment5_9":"9"}},"segment6":{"com.datastax.SEGMENT6":{"segment6_0":"0","segment6_1":"1","segment6_2":"2","segment6_3":"3","segment6_4":"4","segment6_5":"5","segment6_6":"6","segment6_7":"7","segment6_8":"8","segment6_9":"9"}},"segment7":{"com.datastax.SEGMENT7":{"segment7_0":"0","segment7_1":"1","segment7_2":"2","segment7_3":"3","segment7_4":"4","segment7_5":"5","segment7_6":"6","segment7_7":"7","segment7_8":"8","segment7_9":"9"}},"segment8":{"com.datastax.SEGMENT8":{"segment8_0":"0","segment8_1":"1","segment8_2":"2","segment8_3":"3","segment8_4":"4","segment8_5":"5","segment8_6":"6","segment8_7":"7","segment8_8":"8","segment8_9":"9"}},"segment9":{"com.datastax.SEGMENT9":{"segment9_0":"0","segment9_1":"1","segment9_2":"2","segment9_3":"3","segment9_4":"4","segment9_5":"5","segment9_6":"6","segment9_7":"7","segment9_8":"8","segment9_9":"9"}}}
+{"key":"52"}	{"segment0":{"com.datastax.SEGMENT0":{"segment0_0":"0","segment0_1":"1","segment0_2":"2","segment0_3":"3","segment0_4":"4","segment0_5":"5","segment0_6":"6","segment0_7":"7","segment0_8":"8","segment0_9":"9"}},"segment1":{"com.datastax.SEGMENT1":{"segment1_0":"0","segment1_1":"1","segment1_2":"2","segment1_3":"3","segment1_4":"4","segment1_5":"5","segment1_6":"6","segment1_7":"7","segment1_8":"8","segment1_9":"9"}},"segment2":{"com.datastax.SEGMENT2":{"segment2_0":"0","segment2_1":"1","segment2_2":"2","segment2_3":"3","segment2_4":"4","segment2_5":"5","segment2_6":"6","segment2_7":"7","segment2_8":"8","segment2_9":"9"}},"segment3":{"com.datastax.SEGMENT3":{"segment3_0":"0","segment3_1":"1","segment3_2":"2","segment3_3":"3","segment3_4":"4","segment3_5":"5","segment3_6":"6","segment3_7":"7","segment3_8":"8","segment3_9":"9"}},"segment4":{"com.datastax.SEGMENT4":{"segment4_0":"0","segment4_1":"1","segment4_2":"2","segment4_3":"3","segment4_4":"4","segment4_5":"5","segment4_6":"6","segment4_7":"7","segment4_8":"8","segment4_9":"9"}},"segment5":{"com.datastax.SEGMENT5":{"segment5_0":"0","segment5_1":"1","segment5_2":"2","segment5_3":"3","segment5_4":"4","segment5_5":"5","segment5_6":"6","segment5_7":"7","segment5_8":"8","segment5_9":"9"}},"segment6":{"com.datastax.SEGMENT6":{"segment6_0":"0","segment6_1":"1","segment6_2":"2","segment6_3":"3","segment6_4":"4","segment6_5":"5","segment6_6":"6","segment6_7":"7","segment6_8":"8","segment6_9":"9"}},"segment7":{"com.datastax.SEGMENT7":{"segment7_0":"0","segment7_1":"1","segment7_2":"2","segment7_3":"3","segment7_4":"4","segment7_5":"5","segment7_6":"6","segment7_7":"7","segment7_8":"8","segment7_9":"9"}},"segment8":{"com.datastax.SEGMENT8":{"segment8_0":"0","segment8_1":"1","segment8_2":"2","segment8_3":"3","segment8_4":"4","segment8_5":"5","segment8_6":"6","segment8_7":"7","segment8_8":"8","segment8_9":"9"}},"segment9":{"com.datastax.SEGMENT9":{"segment9_0":"0","segment9_1":"1","segment9_2":"2","segment9_3":"3","segment9_4":"4","segment9_5":"5","segment9_6":"6","segment9_7":"7","segment9_8":"8","segment9_9":"9"}}}
+{"key":"57"}	{"segment0":{"com.datastax.SEGMENT0":{"segment0_0":"0","segment0_1":"1","segment0_2":"2","segment0_3":"3","segment0_4":"4","segment0_5":"5","segment0_6":"6","segment0_7":"7","segment0_8":"8","segment0_9":"9"}},"segment1":{"com.datastax.SEGMENT1":{"segment1_0":"0","segment1_1":"1","segment1_2":"2","segment1_3":"3","segment1_4":"4","segment1_5":"5","segment1_6":"6","segment1_7":"7","segment1_8":"8","segment1_9":"9"}},"segment2":{"com.datastax.SEGMENT2":{"segment2_0":"0","segment2_1":"1","segment2_2":"2","segment2_3":"3","segment2_4":"4","segment2_5":"5","segment2_6":"6","segment2_7":"7","segment2_8":"8","segment2_9":"9"}},"segment3":{"com.datastax.SEGMENT3":{"segment3_0":"0","segment3_1":"1","segment3_2":"2","segment3_3":"3","segment3_4":"4","segment3_5":"5","segment3_6":"6","segment3_7":"7","segment3_8":"8","segment3_9":"9"}},"segment4":{"com.datastax.SEGMENT4":{"segment4_0":"0","segment4_1":"1","segment4_2":"2","segment4_3":"3","segment4_4":"4","segment4_5":"5","segment4_6":"6","segment4_7":"7","segment4_8":"8","segment4_9":"9"}},"segment5":{"com.datastax.SEGMENT5":{"segment5_0":"0","segment5_1":"1","segment5_2":"2","segment5_3":"3","segment5_4":"4","segment5_5":"5","segment5_6":"6","segment5_7":"7","segment5_8":"8","segment5_9":"9"}},"segment6":{"com.datastax.SEGMENT6":{"segment6_0":"0","segment6_1":"1","segment6_2":"2","segment6_3":"3","segment6_4":"4","segment6_5":"5","segment6_6":"6","segment6_7":"7","segment6_8":"8","segment6_9":"9"}},"segment7":{"com.datastax.SEGMENT7":{"segment7_0":"0","segment7_1":"1","segment7_2":"2","segment7_3":"3","segment7_4":"4","segment7_5":"5","segment7_6":"6","segment7_7":"7","segment7_8":"8","segment7_9":"9"}},"segment8":{"com.datastax.SEGMENT8":{"segment8_0":"0","segment8_1":"1","segment8_2":"2","segment8_3":"3","segment8_4":"4","segment8_5":"5","segment8_6":"6","segment8_7":"7","segment8_8":"8","segment8_9":"9"}},"segment9":{"com.datastax.SEGMENT9":{"segment9_0":"0","segment9_1":"1","segment9_2":"2","segment9_3":"3","segment9_4":"4","segment9_5":"5","segment9_6":"6","segment9_7":"7","segment9_8":"8","segment9_9":"9"}}}
+Processed a total of 5 messages
+
+----------------------------------------
+---      VERIYING ROWS IN DSE        ---
+----------------------------------------
+
+ id  | udt_col0                                                                                                                                                                   | udt_col1                                                                                                                                                                   | udt_col2                                                                                                                                                                   | udt_col3                                                                                                                                                                   | udt_col4                                                                                                                                                                   | udt_col5                                                                                                                                                                   | udt_col6                                                                                                                                                                   | udt_col7                                                                                                                                                                   | udt_col8                                                                                                                                                                   | udt_col9
+-----+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 769 | {segment0_0: '0', segment0_1: '1', segment0_2: '2', segment0_3: '3', segment0_4: '4', segment0_5: '5', segment0_6: '6', segment0_7: '7', segment0_8: '8', segment0_9: '9'} | {segment1_0: '0', segment1_1: '1', segment1_2: '2', segment1_3: '3', segment1_4: '4', segment1_5: '5', segment1_6: '6', segment1_7: '7', segment1_8: '8', segment1_9: '9'} | {segment2_0: '0', segment2_1: '1', segment2_2: '2', segment2_3: '3', segment2_4: '4', segment2_5: '5', segment2_6: '6', segment2_7: '7', segment2_8: '8', segment2_9: '9'} | {segment3_0: '0', segment3_1: '1', segment3_2: '2', segment3_3: '3', segment3_4: '4', segment3_5: '5', segment3_6: '6', segment3_7: '7', segment3_8: '8', segment3_9: '9'} | {segment4_0: '0', segment4_1: '1', segment4_2: '2', segment4_3: '3', segment4_4: '4', segment4_5: '5', segment4_6: '6', segment4_7: '7', segment4_8: '8', segment4_9: '9'} | {segment5_0: '0', segment5_1: '1', segment5_2: '2', segment5_3: '3', segment5_4: '4', segment5_5: '5', segment5_6: '6', segment5_7: '7', segment5_8: '8', segment5_9: '9'} | {segment6_0: '0', segment6_1: '1', segment6_2: '2', segment6_3: '3', segment6_4: '4', segment6_5: '5', segment6_6: '6', segment6_7: '7', segment6_8: '8', segment6_9: '9'} | {segment7_0: '0', segment7_1: '1', segment7_2: '2', segment7_3: '3', segment7_4: '4', segment7_5: '5', segment7_6: '6', segment7_7: '7', segment7_8: '8', segment7_9: '9'} | {segment8_0: '0', segment8_1: '1', segment8_2: '2', segment8_3: '3', segment8_4: '4', segment8_5: '5', segment8_6: '6', segment8_7: '7', segment8_8: '8', segment8_9: '9'} | {segment9_0: '0', segment9_1: '1', segment9_2: '2', segment9_3: '3', segment9_4: '4', segment9_5: '5', segment9_6: '6', segment9_7: '7', segment9_8: '8', segment9_9: '9'}
+  23 | {segment0_0: '0', segment0_1: '1', segment0_2: '2', segment0_3: '3', segment0_4: '4', segment0_5: '5', segment0_6: '6', segment0_7: '7', segment0_8: '8', segment0_9: '9'} | {segment1_0: '0', segment1_1: '1', segment1_2: '2', segment1_3: '3', segment1_4: '4', segment1_5: '5', segment1_6: '6', segment1_7: '7', segment1_8: '8', segment1_9: '9'} | {segment2_0: '0', segment2_1: '1', segment2_2: '2', segment2_3: '3', segment2_4: '4', segment2_5: '5', segment2_6: '6', segment2_7: '7', segment2_8: '8', segment2_9: '9'} | {segment3_0: '0', segment3_1: '1', segment3_2: '2', segment3_3: '3', segment3_4: '4', segment3_5: '5', segment3_6: '6', segment3_7: '7', segment3_8: '8', segment3_9: '9'} | {segment4_0: '0', segment4_1: '1', segment4_2: '2', segment4_3: '3', segment4_4: '4', segment4_5: '5', segment4_6: '6', segment4_7: '7', segment4_8: '8', segment4_9: '9'} | {segment5_0: '0', segment5_1: '1', segment5_2: '2', segment5_3: '3', segment5_4: '4', segment5_5: '5', segment5_6: '6', segment5_7: '7', segment5_8: '8', segment5_9: '9'} | {segment6_0: '0', segment6_1: '1', segment6_2: '2', segment6_3: '3', segment6_4: '4', segment6_5: '5', segment6_6: '6', segment6_7: '7', segment6_8: '8', segment6_9: '9'} | {segment7_0: '0', segment7_1: '1', segment7_2: '2', segment7_3: '3', segment7_4: '4', segment7_5: '5', segment7_6: '6', segment7_7: '7', segment7_8: '8', segment7_9: '9'} | {segment8_0: '0', segment8_1: '1', segment8_2: '2', segment8_3: '3', segment8_4: '4', segment8_5: '5', segment8_6: '6', segment8_7: '7', segment8_8: '8', segment8_9: '9'} | {segment9_0: '0', segment9_1: '1', segment9_2: '2', segment9_3: '3', segment9_4: '4', segment9_5: '5', segment9_6: '6', segment9_7: '7', segment9_8: '8', segment9_9: '9'}
+ 114 | {segment0_0: '0', segment0_1: '1', segment0_2: '2', segment0_3: '3', segment0_4: '4', segment0_5: '5', segment0_6: '6', segment0_7: '7', segment0_8: '8', segment0_9: '9'} | {segment1_0: '0', segment1_1: '1', segment1_2: '2', segment1_3: '3', segment1_4: '4', segment1_5: '5', segment1_6: '6', segment1_7: '7', segment1_8: '8', segment1_9: '9'} | {segment2_0: '0', segment2_1: '1', segment2_2: '2', segment2_3: '3', segment2_4: '4', segment2_5: '5', segment2_6: '6', segment2_7: '7', segment2_8: '8', segment2_9: '9'} | {segment3_0: '0', segment3_1: '1', segment3_2: '2', segment3_3: '3', segment3_4: '4', segment3_5: '5', segment3_6: '6', segment3_7: '7', segment3_8: '8', segment3_9: '9'} | {segment4_0: '0', segment4_1: '1', segment4_2: '2', segment4_3: '3', segment4_4: '4', segment4_5: '5', segment4_6: '6', segment4_7: '7', segment4_8: '8', segment4_9: '9'} | {segment5_0: '0', segment5_1: '1', segment5_2: '2', segment5_3: '3', segment5_4: '4', segment5_5: '5', segment5_6: '6', segment5_7: '7', segment5_8: '8', segment5_9: '9'} | {segment6_0: '0', segment6_1: '1', segment6_2: '2', segment6_3: '3', segment6_4: '4', segment6_5: '5', segment6_6: '6', segment6_7: '7', segment6_8: '8', segment6_9: '9'} | {segment7_0: '0', segment7_1: '1', segment7_2: '2', segment7_3: '3', segment7_4: '4', segment7_5: '5', segment7_6: '6', segment7_7: '7', segment7_8: '8', segment7_9: '9'} | {segment8_0: '0', segment8_1: '1', segment8_2: '2', segment8_3: '3', segment8_4: '4', segment8_5: '5', segment8_6: '6', segment8_7: '7', segment8_8: '8', segment8_9: '9'} | {segment9_0: '0', segment9_1: '1', segment9_2: '2', segment9_3: '3', segment9_4: '4', segment9_5: '5', segment9_6: '6', segment9_7: '7', segment9_8: '8', segment9_9: '9'}
+ 660 | {segment0_0: '0', segment0_1: '1', segment0_2: '2', segment0_3: '3', segment0_4: '4', segment0_5: '5', segment0_6: '6', segment0_7: '7', segment0_8: '8', segment0_9: '9'} | {segment1_0: '0', segment1_1: '1', segment1_2: '2', segment1_3: '3', segment1_4: '4', segment1_5: '5', segment1_6: '6', segment1_7: '7', segment1_8: '8', segment1_9: '9'} | {segment2_0: '0', segment2_1: '1', segment2_2: '2', segment2_3: '3', segment2_4: '4', segment2_5: '5', segment2_6: '6', segment2_7: '7', segment2_8: '8', segment2_9: '9'} | {segment3_0: '0', segment3_1: '1', segment3_2: '2', segment3_3: '3', segment3_4: '4', segment3_5: '5', segment3_6: '6', segment3_7: '7', segment3_8: '8', segment3_9: '9'} | {segment4_0: '0', segment4_1: '1', segment4_2: '2', segment4_3: '3', segment4_4: '4', segment4_5: '5', segment4_6: '6', segment4_7: '7', segment4_8: '8', segment4_9: '9'} | {segment5_0: '0', segment5_1: '1', segment5_2: '2', segment5_3: '3', segment5_4: '4', segment5_5: '5', segment5_6: '6', segment5_7: '7', segment5_8: '8', segment5_9: '9'} | {segment6_0: '0', segment6_1: '1', segment6_2: '2', segment6_3: '3', segment6_4: '4', segment6_5: '5', segment6_6: '6', segment6_7: '7', segment6_8: '8', segment6_9: '9'} | {segment7_0: '0', segment7_1: '1', segment7_2: '2', segment7_3: '3', segment7_4: '4', segment7_5: '5', segment7_6: '6', segment7_7: '7', segment7_8: '8', segment7_9: '9'} | {segment8_0: '0', segment8_1: '1', segment8_2: '2', segment8_3: '3', segment8_4: '4', segment8_5: '5', segment8_6: '6', segment8_7: '7', segment8_8: '8', segment8_9: '9'} | {segment9_0: '0', segment9_1: '1', segment9_2: '2', segment9_3: '3', segment9_4: '4', segment9_5: '5', segment9_6: '6', segment9_7: '7', segment9_8: '8', segment9_9: '9'}
+ 893 | {segment0_0: '0', segment0_1: '1', segment0_2: '2', segment0_3: '3', segment0_4: '4', segment0_5: '5', segment0_6: '6', segment0_7: '7', segment0_8: '8', segment0_9: '9'} | {segment1_0: '0', segment1_1: '1', segment1_2: '2', segment1_3: '3', segment1_4: '4', segment1_5: '5', segment1_6: '6', segment1_7: '7', segment1_8: '8', segment1_9: '9'} | {segment2_0: '0', segment2_1: '1', segment2_2: '2', segment2_3: '3', segment2_4: '4', segment2_5: '5', segment2_6: '6', segment2_7: '7', segment2_8: '8', segment2_9: '9'} | {segment3_0: '0', segment3_1: '1', segment3_2: '2', segment3_3: '3', segment3_4: '4', segment3_5: '5', segment3_6: '6', segment3_7: '7', segment3_8: '8', segment3_9: '9'} | {segment4_0: '0', segment4_1: '1', segment4_2: '2', segment4_3: '3', segment4_4: '4', segment4_5: '5', segment4_6: '6', segment4_7: '7', segment4_8: '8', segment4_9: '9'} | {segment5_0: '0', segment5_1: '1', segment5_2: '2', segment5_3: '3', segment5_4: '4', segment5_5: '5', segment5_6: '6', segment5_7: '7', segment5_8: '8', segment5_9: '9'} | {segment6_0: '0', segment6_1: '1', segment6_2: '2', segment6_3: '3', segment6_4: '4', segment6_5: '5', segment6_6: '6', segment6_7: '7', segment6_8: '8', segment6_9: '9'} | {segment7_0: '0', segment7_1: '1', segment7_2: '2', segment7_3: '3', segment7_4: '4', segment7_5: '5', segment7_6: '6', segment7_7: '7', segment7_8: '8', segment7_9: '9'} | {segment8_0: '0', segment8_1: '1', segment8_2: '2', segment8_3: '3', segment8_4: '4', segment8_5: '5', segment8_6: '6', segment8_7: '7', segment8_8: '8', segment8_9: '9'} | {segment9_0: '0', segment9_1: '1', segment9_2: '2', segment9_3: '3', segment9_4: '4', segment9_5: '5', segment9_6: '6', segment9_7: '7', segment9_8: '8', segment9_9: '9'}
+
+(5 rows)
+
+Operation directory: /home/automaton/kafka-examples/producers/logs/COUNT_20190430-164016-007994
+total | failed | rows/s | mb/s | kb/row | p50ms |  p99ms | p999ms
+1,000 |      0 |  1,769 | 0.01 |   0.00 | 92.93 | 108.00 | 108.00
+Operation COUNT_20190430-164016-007994 completed successfully in 0 seconds.
+1000
