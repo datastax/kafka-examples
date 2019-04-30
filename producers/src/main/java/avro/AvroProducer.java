@@ -26,10 +26,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class AvroProducer {
 
-  private static final String TOPIC = "avro-stream";
   private static final int SEGMENTS_PER_RECORD = 10;
   private static final int FIELDS_PER_SEGMENT = 10;
-  private static final int TOTAL_RECORDS = 200_000_000;
 
   // Report number of records sent every this many seconds.
   private static final long PROGRESS_REPORTING_INTERVAL = 5;
@@ -37,6 +35,14 @@ public class AvroProducer {
   private static Logger log = LoggerFactory.getLogger("BigAvroProducer");
 
   public static void main(String[] args) throws InterruptedException {
+
+    String TOPIC = "avro-stream";
+    int TOTAL_RECORDS = 1000;
+
+    if (args.length == 2) {
+      TOPIC = args[0];
+      TOTAL_RECORDS = Integer.parseInt(args[1]);
+    }
 
     Properties props = new Properties();
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
