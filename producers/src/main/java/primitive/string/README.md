@@ -3,8 +3,7 @@
 ## Prerequsites
 1. Kafka installed and started ( https://kafka.apache.org/quickstart )
 2. DataStax installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
-3. DataStax Apache Kafka Connector installed ( https://academy.datastax.com/downloads#connectors )
-- Note - Requires DataStax Academy account
+3. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/ )
 4. kafka-examples repository cloned ( `git clone https://github.com/datastax/kafka-examples.git` )
 5. Maven Installed
 
