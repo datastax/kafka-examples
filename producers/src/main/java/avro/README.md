@@ -8,8 +8,7 @@ See [avro_example.sh](https://github.com/datastax/kafka-examples/edit/master/pro
 1. Kafka installed and started ( https://kafka.apache.org/quickstart )
 2. Schema Registry installed and started ( https://docs.confluent.io/current/schema-registry/docs/installation.html )
 3. DataStax installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
-4. DataStax Apache Kafka Connector installed ( https://academy.datastax.com/downloads#connectors )
-- Note - Requires DataStax Academy account
+4. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/ )
 5. kafka-examples repository cloned ( `git clone https://github.com/datastax/kafka-examples.git` )
 6. Maven Installed
 
