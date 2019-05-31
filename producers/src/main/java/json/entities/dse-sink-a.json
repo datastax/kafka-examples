@@ -1,0 +1,12 @@
+{
+  "name": "dse-connector-entity-example",
+  "config": {
+    "connector.class": "com.datastax.kafkaconnector.DseSinkConnector",
+    "tasks.max": "10",
+    "topics": "person",
+    "contactPoints": "host.docker.internal",
+    "loadBalancing.localDc": "dc1",
+    "topic.person.test.person.mapping": "name=value.name, phone=value.phone, dob=value.dob",
+    "topic.person.test.person.consistencyLevel": "LOCAL_QUORUM"
+  }
+}

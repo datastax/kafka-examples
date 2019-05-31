@@ -96,6 +96,7 @@ fabric.properties
 
 # Package Files #
 *.jar
+!kafka-connect-dse-1.1.0.jar
 *.war
 *.nar
 *.ear
@@ -147,3 +148,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # End of https://www.gitignore.io/api/java,macos,maven,intellij
+
+producers/\.idea/
+
+*.iml

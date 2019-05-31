@@ -1,0 +1,11 @@
+{
+    "connector.class": "com.datastax.kafkaconnector.DseSinkConnector",
+    "tasks.max": "10",
+    "topics": "person,phone",
+    "contactPoints": "host.docker.internal",
+    "loadBalancing.localDc": "dc1",
+    "topic.person.test.person.mapping": "name=value.name, phone=value.phone",
+    "topic.person.test.person.consistencyLevel": "LOCAL_QUORUM",
+    "topic.phone.test.phone.mapping": "phone=value.phone, type=value.type",
+    "topic.phone.test.phone.consistencyLevel": "LOCAL_QUORUM"
+}
