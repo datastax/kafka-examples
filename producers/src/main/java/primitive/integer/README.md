@@ -4,7 +4,7 @@
 1. Kafka installed and started ( https://kafka.apache.org/quickstart )
 - Note - If using Kafka version < 2.0, the Numeric Converters must be installed manually by adding newer connect-runtime.jar to `plugin.path`
 2. DataStax installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
-3. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/ )
+3. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/kafka-connect-dse.tar.gz )
 4. kafka-examples repository cloned ( `git clone https://github.com/datastax/kafka-examples.git` )
 5. Maven Installed
 
