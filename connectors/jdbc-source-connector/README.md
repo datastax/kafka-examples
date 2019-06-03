@@ -5,8 +5,7 @@
 2. DataStax installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
 3. PostgresSQL installed and started ( https://www.postgresql.org/download/ )
 4. JDBC Connector installed ( https://www.confluent.io/connector/kafka-connect-jdbc/ )
-5. DataStax Apache Kafka Connector installed ( https://academy.datastax.com/downloads#connectors )
-- Note - Requires DataStax Academy account
+5. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/kafka-connect-dse.tar.gz )
 6. kafka-examples repository cloned ( `git clone https://github.com/datastax/kafka-examples.git` )
 
 ## File Details
