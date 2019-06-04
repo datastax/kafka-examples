@@ -3,7 +3,7 @@ This repository contains examples of using the DataStax Apache Kafka<sup>TM</sup
 
 Documentation - https://docs.datastax.com/en/kafka/doc
 
-Download - https://downloads.datastax.com/kafka/
+Download - https://downloads.datastax.com/kafka/kafka-connect-dse.tar.gz
 
 Slack - https://academy.datastax.com/slack #kafka-connector
 
