@@ -28,15 +28,39 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class JsonProducer {
 
-    private static final String TOPIC = "json-stream";
-    private static final int RECORDS_PER_STOCK = 2_000_000;
-    private static final int NUMBER_OF_STOCKS = 500;
     // Report number of records sent every this many seconds.
     private static final long PROGRESS_REPORTING_INTERVAL = 5;
 
     private static Logger log = LoggerFactory.getLogger("JsonProducer");
 
     public static void main(String[] args) throws InterruptedException {
+
+        String TOPIC = "json-stream";
+        int RECORDS_PER_STOCK = 2_000_000;
+        int NUMBER_OF_STOCKS = 500;
+        String BOOTSTRAP_SERVERS = "localhost:9092";
+
+        if (args.length == 1) {
+            TOPIC = args[0];
+        }
+        else if (args.length == 2){
+            TOPIC = args[0];
+            NUMBER_OF_STOCKS = Integer.parseInt(args[1]);
+        }
+        else if (args.length == 3){
+            TOPIC = args[0];
+            NUMBER_OF_STOCKS = Integer.parseInt(args[1]);
+            RECORDS_PER_STOCK = Integer.parseInt(args[2]);
+        }
+        else if (args.length == 4){
+            TOPIC = args[0];
+            NUMBER_OF_STOCKS = Integer.parseInt(args[1]);
+            RECORDS_PER_STOCK = Integer.parseInt(args[2]);
+            BOOTSTRAP_SERVERS = args[3];
+        }
+
+        log.info("Topic Name: {}, Number of Stocks: {}, Records per Stock: {}, Bootstrap Servers: {}",
+                TOPIC, NUMBER_OF_STOCKS, RECORDS_PER_STOCK, BOOTSTRAP_SERVERS);
 
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
