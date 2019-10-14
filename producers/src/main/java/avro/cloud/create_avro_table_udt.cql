@@ -1,5 +1,5 @@
-// On cloud there must be no keyspace created and all statements must use implicit keyspace
-TRUNCATE avro_udt_table;
+// When using cloud there must be no keyspace created and all statements must use keyspace defined in the cloud (https://apollo.datastax.com)
+DROP TABLE avro_udt_table;
 
 CREATE type if not exists segment0_udt (
 segment0_0 text,
