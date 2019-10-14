@@ -1,0 +1,12 @@
+{
+  "name": "dse-connector-avro-example",
+  "config": {
+    "connector.class": "com.datastax.kafkaconnector.DseSinkConnector",
+    "tasks.max": "10",
+    "topics": "avro-stream",
+    "topic.avro-stream.CLOUD_KEYSPACE.avro_udt_table.mapping": "id=key.key, udt_col0=value.segment0,udt_col1=value.segment1,udt_col2=value.segment2,udt_col3=value.segment3,udt_col4=value.segment4,udt_col5=value.segment5,udt_col6=value.segment6,udt_col7=value.segment7,udt_col8=value.segment8,udt_col9=value.segment9",
+    "cloud.secureConnectBundle": "/home/automaton/secure-bundle.zip",
+    "auth.username": "CLOUD_USERNAME",
+    "auth.password": "CLOUD_PASSWORD"
+  }
+}
