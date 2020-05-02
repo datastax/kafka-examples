@@ -70,9 +70,9 @@ maybe_set_total_records () {
   fi
 }
 
-maybe_set_dse_connector_version () {
-  if [ -z "$DSE_CONNECTOR_VERSION" ] ; then
-    DSE_CONNECTOR_VERSION=1.0.0
+maybe_set_cassandra_connector_version () {
+  if [ -z "$CASSANDRA_CONNECTOR_VERSION" ] ; then
+    CASSANDRA_CONNECTOR_VERSION=1.0.0
   fi
 }
 
@@ -90,14 +90,14 @@ install_confluent () {
 	tar xzf confluent-community-5.2.1-2.12.tar.gz -C $CONFLUENT_HOME --strip-components=1 
 }
 
-install_dse_connector () {
+install_cassandra_connector () {
 	echo
 	echo "----------------------------------------"
 	echo "---   INSTALLING DATASTAX CONNECTOR  ---"
 	echo "----------------------------------------"
 	mkdir $CONNECTOR_HOME;
-	curl --user ${ACADEMY_USERNAME}:${ACADEMY_DOWNLOAD_KEY} -L -O https://downloads.datastax.com/kafka/kafka-connect-cassandra-sink-${DSE_CONNECTOR_VERSION}.tar.gz && wait
-	tar xzf kafka-connect-cassandra-sink-${DSE_CONNECTOR_VERSION}.tar.gz -C $CONNECTOR_HOME --strip-components=1
+	curl --user ${ACADEMY_USERNAME}:${ACADEMY_DOWNLOAD_KEY} -L -O https://downloads.datastax.com/kafka/kafka-connect-cassandra-sink-${CASSANDRA_CONNECTOR_VERSION}.tar.gz && wait
+	tar xzf kafka-connect-cassandra-sink-${CASSANDRA_CONNECTOR_VERSION}.tar.gz -C $CONNECTOR_HOME --strip-components=1
 }
 
 install_dse () {
@@ -169,7 +169,7 @@ start_distributed_worker () {
 	echo "----------------------------------------"
 	echo "---   STARTING KAFKA CONNECT WORKER  ---"
 	echo "----------------------------------------"
-	plugin_path=${CONFLUENT_HOME}/share/,${CONNECTOR_HOME}/kafka-connect-cassandra-sink-${DSE_CONNECTOR_VERSION}.jar
+	plugin_path=${CONFLUENT_HOME}/share/,${CONNECTOR_HOME}/kafka-connect-cassandra-sink-${CASSANDRA_CONNECTOR_VERSION}.jar
 	sed -i "s#plugin\.path.*#plugin\.path=$plugin_path#" kafka-examples/producers/src/main/java/avro/connect-distributed-avro.properties
 	$CONFLUENT_HOME/bin/connect-distributed kafka-examples/producers/src/main/java/avro/connect-distributed-avro.properties >> $CONFLUENT_HOME/logs/worker-avro-example.log 2>&1 &
 
@@ -239,11 +239,11 @@ assert_dse_home
 assert_connector_home
 maybe_set_topic_name
 maybe_set_total_records
-maybe_set_dse_connector_version
+maybe_set_cassandra_connector_version
 
 # Install Confluent, DataStax Connector, DSE, and Kafka Examples
 install_confluent
-install_dse_connector
+install_cassandra_connector
 install_dse
 install_kafka_examples
 
