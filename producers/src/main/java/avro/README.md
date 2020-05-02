@@ -7,8 +7,8 @@ See [avro_example.sh](https://github.com/datastax/kafka-examples/edit/master/pro
 ## Prerequsites
 1. Kafka installed and started ( https://kafka.apache.org/quickstart )
 2. Schema Registry installed and started ( https://docs.confluent.io/current/schema-registry/docs/installation.html )
-3. DataStax installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
-4. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/kafka-connect-dse.tar.gz )
+3. DataStax DSE installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
+4. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/#akc )
 5. kafka-examples repository cloned ( `git clone https://github.com/datastax/kafka-examples.git` )
 6. Maven Installed
 
@@ -89,7 +89,7 @@ Create/Start Connector
 curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/avro/dse-sink-avro.json "http://localhost:8083/connectors"
 ```
 ```
-{"name":"dse-connector-avro-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"10","topics":"avro-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.avro-stream.kafka_examples.avro_udt_table.mapping":"id=key.key, udt_col0=value.segment0,udt_col1=value.segment1,udt_col2=value.segment2,udt_col3=value.segment3,udt_col4=value.segment4,udt_col5=value.segment5,udt_col6=value.segment6,udt_col7=value.segment7,udt_col8=value.segment8,udt_col9=value.segment9","name":"dse-connector-avro-example"},"tasks":[{"connector":"dse-connector-avro-example","task":0},{"connector":"dse-connector-avro-example","task":1},{"connector":"dse-connector-avro-example","task":2},{"connector":"dse-connector-avro-example","task":3},{"connector":"dse-connector-avro-example","task":4},{"connector":"dse-connector-avro-example","task":5},{"connector":"dse-connector-avro-example","task":6},{"connector":"dse-connector-avro-example","task":7},{"connector":"dse-connector-avro-example","task":8},{"connector":"dse-connector-avro-example","task":9}],"type":null}```
+{"name":"dse-connector-avro-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"10","topics":"avro-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.avro-stream.kafka_examples.avro_udt_table.mapping":"id=key.key, udt_col0=value.segment0,udt_col1=value.segment1,udt_col2=value.segment2,udt_col3=value.segment3,udt_col4=value.segment4,udt_col5=value.segment5,udt_col6=value.segment6,udt_col7=value.segment7,udt_col8=value.segment8,udt_col9=value.segment9","name":"dse-connector-avro-example"},"tasks":[{"connector":"dse-connector-avro-example","task":0},{"connector":"dse-connector-avro-example","task":1},{"connector":"dse-connector-avro-example","task":2},{"connector":"dse-connector-avro-example","task":3},{"connector":"dse-connector-avro-example","task":4},{"connector":"dse-connector-avro-example","task":5},{"connector":"dse-connector-avro-example","task":6},{"connector":"dse-connector-avro-example","task":7},{"connector":"dse-connector-avro-example","task":8},{"connector":"dse-connector-avro-example","task":9}],"type":null}```
 ```
 
 Below is the Connector Mapping in `dse-sink-avro.json`

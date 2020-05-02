@@ -2,8 +2,8 @@
 
 ## Prerequsites
 1. Kafka installed and started ( https://kafka.apache.org/quickstart )
-2. DataStax installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
-3. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/kafka-connect-dse.tar.gz )
+2. DataStax DSE installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
+3. DataStax Apache Kafka Sink Connector installed ( https://downloads.datastax.com/#akc )
 4. kafka-examples repository cloned ( `git clone https://github.com/datastax/kafka-examples.git` )
 5. Maven Installed
 
@@ -65,7 +65,7 @@ Create/Start Connector
 curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/primitive/string/dse-sink-string.json "http://localhost:8083/connectors"
 ```
 ```
-{"name":"dse-connector-string-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"1","topics":"string_stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.string_stream.kafka_examples.string_table.mapping":"recordid=key, continent=value","topic.string_stream.kafka_examples.string_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-string-example"},"tasks":[],"type":null}
+{"name":"dse-connector-string-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"1","topics":"string_stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.string_stream.kafka_examples.string_table.mapping":"recordid=key, continent=value","topic.string_stream.kafka_examples.string_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-string-example"},"tasks":[],"type":null}
 ```
 
 Below is the Connector Mapping in `dse-sink-string.json`

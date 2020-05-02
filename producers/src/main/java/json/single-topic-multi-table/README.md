@@ -2,8 +2,8 @@
 
 ## Prerequsites
 1. Kafka installed and started ( https://kafka.apache.org/quickstart )
-2. DataStax installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
-3. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/kafka/kafka-connect-dse.tar.gz )
+2. DataStax DSE installed and started ( https://docs.datastax.com/en/install/6.7/install/installTOC.html )
+3. DataStax Apache Kafka Connector installed ( https://downloads.datastax.com/#akc )
 4. kafka-examples repository cloned ( `git clone https://github.com/datastax/kafka-examples.git` )
 5. Maven Installed
 
@@ -66,7 +66,7 @@ Start DataStax Connector
 curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/json/single-topic-multi-table/dse-sink-multi-table.json "http://localhost:8083/connectors"
 ```
 ```
-{"name":"dse-connector-json-multi-table-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"10","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.kafka_examples.stocks_table_by_symbol.mapping":"symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, name=key, value=value.value","topic.json-stream.kafka_examples.stocks_table_by_exchange.mapping":"symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, name=key, value=value.value","topic.json-stream.kafka_examples.stocks_table_by_industry.mapping":"symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, name=key, value=value.value","topic.json-stream.kafka_examples.stocks_table_by_symbol.consistencyLevel":"LOCAL_QUORUM","topic.json-stream.kafka_examples.stocks_table_by_exchange.consistencyLevel":"LOCAL_QUORUM","topic.json-stream.kafka_examples.stocks_table_by_industry.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-json-multi-table-example"},"tasks":[],"type":null}
+{"name":"dse-connector-json-multi-table-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"10","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.kafka_examples.stocks_table_by_symbol.mapping":"symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, name=key, value=value.value","topic.json-stream.kafka_examples.stocks_table_by_exchange.mapping":"symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, name=key, value=value.value","topic.json-stream.kafka_examples.stocks_table_by_industry.mapping":"symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, name=key, value=value.value","topic.json-stream.kafka_examples.stocks_table_by_symbol.consistencyLevel":"LOCAL_QUORUM","topic.json-stream.kafka_examples.stocks_table_by_exchange.consistencyLevel":"LOCAL_QUORUM","topic.json-stream.kafka_examples.stocks_table_by_industry.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-json-multi-table-example"},"tasks":[],"type":null}
 ```
 
 Below is the Connector Mapping in `dse-sink-multi-table.json`
