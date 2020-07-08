@@ -75,7 +75,7 @@ Start the DataStax Connector
 ```
 curl -X POST -H "Content-Type: application/json" -d @dse-sink-jdbc-with-schema.json "http://localhost:8083/connectors"
 ...
-{"name":"dse-connector-jdbc-with-schema-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"1","topics":"jdbc-postgresql-with-schema-example-addresses","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.jdbc-postgresql-with-schema-example-addresses.kafka_examples.addresses_with_schema.mapping":"person_id=value.personid, first_name=value.firstname, last_name=value.lastname, street=value.street, city=value.city","topic.jdbc-postgresql-with-schema-example-addresses.kafka_examples.addresses_with_schema.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-jdbc-with-schema-example"},"tasks":[],"type":null}
+{"name":"dse-connector-jdbc-with-schema-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"1","topics":"jdbc-postgresql-with-schema-example-addresses","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.jdbc-postgresql-with-schema-example-addresses.kafka_examples.addresses_with_schema.mapping":"person_id=value.personid, first_name=value.firstname, last_name=value.lastname, street=value.street, city=value.city","topic.jdbc-postgresql-with-schema-example-addresses.kafka_examples.addresses_with_schema.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-jdbc-with-schema-example"},"tasks":[],"type":null}
 ```
 
 Verify records in DSE
@@ -129,7 +129,7 @@ Start the DataStax Connector
 ```
 curl -X POST -H "Content-Type: application/json" -d @dse-sink-jdbc-without-schema.json "http://localhost:8083/connectors"
 ...
-{"name":"dse-connector-jdbc-without-schema-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"1","topics":"jdbc-postgresql-without-schema-example-addresses","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.jdbc-postgresql-without-schema-example-addresses.kafka_examples.addresses_without_schema.mapping":"person_id=value.personid, first_name=value.firstname, last_name=value.lastname, street=value.street, city=value.city","topic.jdbc-postgresql-without-schema-example-addresses.kafka_examples.addresses_without_schema.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-jdbc-without-schema-example"},"tasks":[],"type":null}
+{"name":"dse-connector-jdbc-without-schema-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"1","topics":"jdbc-postgresql-without-schema-example-addresses","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.jdbc-postgresql-without-schema-example-addresses.kafka_examples.addresses_without_schema.mapping":"person_id=value.personid, first_name=value.firstname, last_name=value.lastname, street=value.street, city=value.city","topic.jdbc-postgresql-without-schema-example-addresses.kafka_examples.addresses_without_schema.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-jdbc-without-schema-example"},"tasks":[],"type":null}
 ```
 
 Verify records in DSE

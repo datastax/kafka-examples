@@ -93,7 +93,7 @@ Start DataStax Connector
 curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/json/dse-sink.json "http://localhost:8083/connectors"
 ```
 ```
-{"name":"dse-connector-json-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"100","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.stocks.ticks.mapping":"name=key, symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, value=value.value","topic.json-stream.stocks.ticks.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-json-example"},"tasks":[],"type":null}```
+{"name":"dse-connector-json-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"100","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.stocks.ticks.mapping":"name=key, symbol=value.symbol, datetime=value.datetime, exchange=value.exchange, industry=value.industry, value=value.value","topic.json-stream.stocks.ticks.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-json-example"},"tasks":[],"type":null}```
 ```
 
 Below is the Connector Mapping in `dse-sink.json`

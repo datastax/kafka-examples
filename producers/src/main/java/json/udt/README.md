@@ -66,7 +66,7 @@ Start DataStax Connector
 curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/json/udt/dse-sink-udt.json "http://localhost:8083/connectors"
 ```
 ```
-{"name":"dse-connector-udt-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"1","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.kafka_examples.stocks_udt_table.mapping":"name=key, stocks=value","topic.json-stream.kafka_examples.stocks_udt_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-udt-example"},"tasks":[],"type":null}
+{"name":"dse-connector-udt-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"1","topics":"json-stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.json-stream.kafka_examples.stocks_udt_table.mapping":"name=key, stocks=value","topic.json-stream.kafka_examples.stocks_udt_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-udt-example"},"tasks":[],"type":null}
 ```
 
 Below is the Connector Mapping in `dse-sink-udt.json`
