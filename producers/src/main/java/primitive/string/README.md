@@ -65,7 +65,7 @@ Create/Start Connector
 curl -X POST -H "Content-Type: application/json" -d @kafka-examples/producers/src/main/java/primitive/string/dse-sink-string.json "http://localhost:8083/connectors"
 ```
 ```
-{"name":"dse-connector-string-example","config":{"connector.class":"com.datastax.kafkaconnector.DseSinkConnector","tasks.max":"1","topics":"string_stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.string_stream.kafka_examples.string_table.mapping":"recordid=key, continent=value","topic.string_stream.kafka_examples.string_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-string-example"},"tasks":[],"type":null}
+{"name":"dse-connector-string-example","config":{"connector.class":"com.datastax.oss.kafka.sink.CassandraSinkConnector","tasks.max":"1","topics":"string_stream","contactPoints":"127.0.0.1","loadBalancing.localDc":"Cassandra","topic.string_stream.kafka_examples.string_table.mapping":"recordid=key, continent=value","topic.string_stream.kafka_examples.string_table.consistencyLevel":"LOCAL_QUORUM","name":"dse-connector-string-example"},"tasks":[],"type":null}
 ```
 
 Below is the Connector Mapping in `dse-sink-string.json`

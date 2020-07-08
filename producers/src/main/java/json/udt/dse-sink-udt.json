@@ -1,7 +1,7 @@
 {
   "name": "dse-connector-udt-example",
   "config": {
-    "connector.class": "com.datastax.kafkaconnector.DseSinkConnector",
+    "connector.class": "com.datastax.oss.kafka.sink.CassandraSinkConnector",
     "tasks.max": "1",
     "topics": "json-stream",
     "contactPoints": "127.0.0.1",
